@@ -1,0 +1,11 @@
+<div class="grid-container">
+  <button *ngFor="let task of tasks" (click)="selectTask(task.id)">
+    <div class="grid-item">
+      {{task.name}}
+      <span *ngIf="selectedTask==task.id">
+        <br>
+        <input [(ngModel)]="task.name">
+      </span>
+    </div>
+  </button>
+</div>
