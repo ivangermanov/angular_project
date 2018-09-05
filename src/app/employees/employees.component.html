@@ -1,0 +1,26 @@
+
+
+
+
+<div *ngIf="selectedEmployee">
+<h2>{{selectedEmployee.name | uppercase}} Details</h2>
+<div><span>id: </span>{{selectedEmployee.id}}</div>
+<div>
+  <label>name:
+    <input [(ngModel)]="selectedEmployee.name" placeholder="name">
+  </label>
+</div>
+</div>
+
+<ul>
+  <h2>My Employees</h2>
+  <ul class="employees">
+    <li *ngFor="let employee of employees"
+[class.selected]="employee === selectedEmployee"
+    (click)="onSelect(employee)">
+
+      <span class="badge">{{employee.id}}</span> {{employee.name}}
+    </li>
+  </ul>
+
+</ul>
