@@ -1,0 +1,29 @@
+<div *ngIf="selectedDepartment">
+
+  <h2>{{selectedDepartment.name}} Details</h2> 
+  <div><span>id: </span>{{selectedDepartment.id}}</div>
+  <div>
+    <label>name: 
+      <input [(ngModel)]="selectedDepartment.name" placeholder="name">
+    </label>
+  </div>
+  
+  </div>
+
+
+<h2>My Departments</h2> 
+<div class="grid-container">
+
+ <!-- <ul class="departments"> -->
+     <li class="departments" *ngFor="let department of departments"
+   [class.selected]="department === selectedDepartment" 
+   (click)="onSelect(department)">
+    <span class="grid-item">{{department.id}} </span> {{department.name}}
+
+    </li>
+  
+</div>
+
+
+
+
