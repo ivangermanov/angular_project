@@ -1,11 +1,17 @@
+<div *ngIf="selectedTask">
+  <h2>{{selectedTask.name}} Details</h2>
+  <div><span>id: </span>{{selectedTask.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedTask.name" placeholder="name">
+    </label>
+  </div>
+</div>
+
+<h2>My Tasks</h2>
 <div class="grid-container">
-  <button *ngFor="let task of tasks" (click)="selectTask(task.id)">
-    <div class="grid-item">
-      {{task.name}}
-      <span *ngIf="selectedTask==task.id">
-        <br>
-        <input [(ngModel)]="task.name">
-      </span>
-    </div>
-  </button>
+  <li class="tasks" *ngFor="let task of tasks" [class.selected]="task === selectedTask"
+    (click)="selectTask(task)">
+    <span class="grid-item">{{task.id}} </span> {{task.name}}
+  </li>
 </div>
