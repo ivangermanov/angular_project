@@ -9,13 +9,12 @@ import { TASKS } from '../mock-tasks'
 })
 export class TasksComponent implements OnInit {
 
-  private selectedTask: number;
+  selectedTask: Task;
 
   tasks = TASKS;
 
-  selectTask(id: number) {
-    this.selectedTask = id;
-    console.log(this.selectedTask);
+  selectTask(task: Task) {
+    this.selectedTask = task;
   }
 
   constructor() { }
