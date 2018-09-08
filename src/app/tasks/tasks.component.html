@@ -1,6 +1,8 @@
 <div *ngIf="selectedTask">
   <h2>{{selectedTask.name}} Details</h2>
   <div><span>id: </span>{{selectedTask.id}}</div>
+  <div><span>reason: </span>{{selectedTask.reason}}</div>
+  <div><span>minutes: </span>{{selectedTask.minutes}}</div>
   <div>
     <label>name:
       <input [(ngModel)]="selectedTask.name" placeholder="name">
@@ -8,10 +10,26 @@
   </div>
 </div>
 
+<div class='addTaskContainer'>
+  <label class='addTaskItem'>Task name:
+    <input #taskName />
+  </label>
+  <label class='addTaskItem'>Task reason:
+    <input #taskReason />
+  </label>
+  <label class='addTaskItem'>Task minutes:
+    <input #taskMinutes type="number"/>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(taskName.value, taskReason.value, taskMinutes.value); taskName.value=''; taskReason.value=''; taskMinutes.value=''">
+    add
+  </button>
+</div>
+
 <h2>My Tasks</h2>
 <div class="grid-container">
-  <li class="tasks" *ngFor="let task of tasks" [class.selected]="task === selectedTask"
-    (click)="selectTask(task)">
+  <li class="tasks" *ngFor="let task of tasks" [class.selected]="task === selectedTask" (click)="selectTask(task)">
     <span class="grid-item">{{task.id}} </span> {{task.name}}
+    <button class="delete" title="delete task" (click)="delete(task)">x</button>
   </li>
 </div>
