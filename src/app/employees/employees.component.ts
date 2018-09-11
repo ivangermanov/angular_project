@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
-import { EMPLOYEES } from '../employees';
+import { EMPLOYEES } from '../mock-employees';
 
 @Component({
   selector: 'app-employees',
