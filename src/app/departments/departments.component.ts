@@ -9,10 +9,7 @@ import { DEPARTMENTS} from '../mock-departments';
 })
 export class DepartmentsComponent implements OnInit {
   
-  department: Department = {
-    id:1, 
-    name: 'Mara'
-  };
+
   departments = DEPARTMENTS;
  
   constructor() { }
@@ -25,4 +22,22 @@ export class DepartmentsComponent implements OnInit {
   onSelect(department: Department): void {
     this.selectedDepartment = department;
   }
+
+add(name: string, role: string) {
+  let id; 
+  if(this.departments.length > 0) 
+  {
+    id = this.departments[this.departments.length -1].id + 1; 
+  }
+  else 
+  {
+    id = 1; 
+  }
+  DEPARTMENTS.push(new Department(id, name, role));
+}
+
+delete(dep: Department) {
+  this.departments = this.departments.filter(department => department !==dep ); 
+
+}
 }

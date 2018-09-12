@@ -1,4 +1,7 @@
 export class Department {
-    id: number;
-    name: string 
+    constructor(
+    public id: number,
+    public name: string,
+    public role: string
+    ) {}
 }

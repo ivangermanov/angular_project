@@ -18,6 +18,13 @@
     border-radius: 4px;
   }
   
+  .addDepartmentInfo {
+    padding:.3em 0 ;
+  }
+
+  .buttonAddDepartments{
+    margin-left: 3%;
+  }
  li.selected:hover.departments {
     background-color: #BBD8DC !important;
     color: white;
