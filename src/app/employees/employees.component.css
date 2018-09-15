@@ -4,6 +4,18 @@
   background-color: #CFD8DC !important;
   color: white;
 }
+
+.addEmployeeContainer
+{
+padding:10px;
+}
+
+.addEmployeeItem
+{
+padding:10px;
+}
+
+
 .employees {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -49,4 +61,11 @@
   height: 1.8em;
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
+}
+button.delete {
+  float: right;
+  background-color: red !important;
+  color: white;
+  margin-top: 5px;
+  margin-right: 5px;
 }
