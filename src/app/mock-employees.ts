@@ -1,7 +1,6 @@
 import { Employee } from './employee';
 
-import { DEPARTMENTS } from './mock-departments';
-import { TASKS } from './mock-tasks';
+
 
 export const  EMPLOYEES: Employee[] = [
   { id: 11,
