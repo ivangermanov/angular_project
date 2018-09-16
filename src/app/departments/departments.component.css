@@ -25,6 +25,14 @@
   .buttonAddDepartments{
     margin-left: 3%;
   }
+  .buttondeleteDepartments{
+    float: right;
+    background-color: gray !important;
+    color: white;
+    margin-top: 2px;
+    margin-right: 5px;
+    position: relative;
+  }
  li.selected:hover.departments {
     background-color: #BBD8DC !important;
     color: white;

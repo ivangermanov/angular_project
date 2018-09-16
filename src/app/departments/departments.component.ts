@@ -24,6 +24,7 @@ export class DepartmentsComponent implements OnInit {
   }
 
 add(name: string, role: string) {
+  if(!name) {return; }
   let id; 
   if(this.departments.length > 0) 
   {
@@ -37,7 +38,7 @@ add(name: string, role: string) {
 }
 
 delete(dep: Department) {
-  this.departments = this.departments.filter(department => department !==dep ); 
+  this.departments = this.departments.filter(department => department !== dep ); 
 
 }
 }
