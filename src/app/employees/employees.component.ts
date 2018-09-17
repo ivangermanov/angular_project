@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
-<<<<<<< HEAD
-import { EMPLOYEES } from '../mock-employees';
-=======
 import {EmployeeService} from '../employee.service';
->>>>>>> Employees
 
 @Component({
   selector: 'app-employees',
