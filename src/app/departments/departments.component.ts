@@ -35,10 +35,12 @@ add(name: string, role: string) {
     id = 1; 
   }
   DEPARTMENTS.push(new Department(id, name, role));
+  console.log(DEPARTMENTS.length);
 }
 
 delete(dep: Department) {
-  this.departments = this.departments.filter(department => department !== dep ); 
-
+ 
+    this.departments.splice(this.departments.indexOf(dep),1);
+ 
 }
 }

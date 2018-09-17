@@ -31,7 +31,7 @@
     color: white;
     margin-top: 2px;
     margin-right: 5px;
-    position: relative;
+   
   }
  li.selected:hover.departments {
     background-color: #BBD8DC !important;
