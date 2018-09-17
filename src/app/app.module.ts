@@ -3,8 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent } from './app.component';
+<<<<<<< HEAD
 import { TasksComponent } from './tasks/tasks.component';
 import { DepartmentsComponent } from './departments/departments.component';
+=======
+
+>>>>>>> Employees
 import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({

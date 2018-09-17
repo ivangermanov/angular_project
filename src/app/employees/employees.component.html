@@ -5,14 +5,38 @@
 <div *ngIf="selectedEmployee">
 <h2>{{selectedEmployee.name | uppercase}} Details</h2>
 <div><span>id: </span>{{selectedEmployee.id}}</div>
+<div><span>Date of Hire: </span>{{selectedEmployee.doh}}</div>
+<div><span>Telephone: </span>{{selectedEmployee.tel}}</div>
 <div>
   <label>name:
-    <input [(ngModel)]="selectedEmployee.name" placeholder="name">
+    <input [(ngModel)]="selectedEmployee.name" placeholder="name"/>
   </label>
 </div>
 </div>
 
-<ul>
+<div class='addEmployeeContainer'>
+
+  <label class='addEmployeeItem'>Employee name:
+    <input #employeeName />
+  </label>
+
+  <label class='addEmployeeItem'>Employee DOH:
+    <input #employeeDOH />
+  </label>
+  <label class='addEmployeeItem'>Employee telephone:
+    <input #employeeTel />
+  </label>
+
+
+
+  <button (click)="add(employeeName.value,  employeeTel.value, employeeDOH.value);
+                 employeeName.value='';  employeeTel.value=''; employeeDOH.value='';">
+    Add!
+  </button>
+</div>
+
+<div class = "listItems">
+
   <h2>My Employees</h2>
   <ul class="employees">
     <li *ngFor="let employee of employees"
@@ -20,7 +44,8 @@
     (click)="onSelect(employee)">
 
       <span class="badge">{{employee.id}}</span> {{employee.name}}
+        <button class="delete" title="delete Employee" (click)="delete(employee)">x</button>
     </li>
   </ul>
 
-</ul>
+</div>
