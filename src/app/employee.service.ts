@@ -8,20 +8,23 @@ import { Observable, of } from 'rxjs';
 })
 export class EmployeeService {
 
+  employees$: Observable<Employee[]>;
+
   getEmployees(): Employee[] {
-  return EMPLOYEES;
-}
+    this.employees$ = of(EMPLOYEES);
+    return EMPLOYEES;
+  }
 
-addEmployee (employee: Employee): Observable<Employee> {
-  return of(employee);
-}
-
-
-  deleteEmployee (employee: Employee): Observable<Employee> {
-    const id = typeof employee === 'number' ? employee : employee.id;
-    const index = EMPLOYEES.indexOf(employee);
-    EMPLOYEES.splice(index);
+  addEmployee(employee: Employee): Observable<Employee> {
     return of(employee);
   }
+
+
+  deleteEmployee(employee: Employee): Observable<Employee> {
+    const index = EMPLOYEES.indexOf(employee);
+    EMPLOYEES.splice(index, 1);
+    return of(employee);
+  }
+
   constructor() { }
 }

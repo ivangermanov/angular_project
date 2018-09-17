@@ -35,9 +35,9 @@ add(name: string, tel: string, doh: string): void {
 }
 
 
-getEmployees(): void {
-  this.employees = this.employeeService.getEmployees();
-}
+// getEmployees(): void {
+//   this.employees = this.employeeService.getEmployees();
+// }
 
 delete(employee: Employee): void {
   this.employees = this.employees.filter(e => e !== employee);
@@ -47,7 +47,10 @@ delete(employee: Employee): void {
   constructor(private employeeService: EmployeeService) {  }
 
   ngOnInit() {
-    this.getEmployees();
+    //this.getEmployees();
+    this.employeeService.employees$.subscribe(employees => {
+      this.employees = employees;
+    })
   }
 
 }

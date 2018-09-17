@@ -46,12 +46,11 @@ export class TasksComponent implements OnInit {
       id = 1;
     }
     let newTask = new Task(id, name, reason, minutes, employees, department);
-    this.taskService.addTask(newTask).subscribe(task => { this.tasks.push(task); });
+    this.taskService.addTask(newTask).subscribe(() => { this.getTasks(); });
   }
 
   delete(task: Task): void {
-    this.tasks = this.tasks.filter(t => t !== task);
-    this.taskService.deleteTask(task).subscribe();
+    this.taskService.deleteTask(task).subscribe(() => { this.getTasks(); });
   }
 
   getTasks(): void {
@@ -63,12 +62,15 @@ export class TasksComponent implements OnInit {
   }
 
   constructor(private taskService: TaskService,
-              private employeeService: EmployeeService) {
+    private employeeService: EmployeeService) {
   }
 
   ngOnInit() {
     this.getTasks();
     this.getEmployees();
+    this.employeeService.employees$.subscribe(employees => {
+      this.employees = employees;
+    })
   }
 
 }

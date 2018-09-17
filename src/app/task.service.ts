@@ -14,12 +14,12 @@ export class TaskService {
   }
 
   addTask (task: Task): Observable<Task> {
+    TASKS.push(task);
     return of(task);
   }
 
   deleteTask (task: Task): Observable<Task> {
-    const index = TASKS.indexOf(task);
-    TASKS.splice(index, 1);
+    TASKS.splice(TASKS.indexOf(task), 1);
     return of(task);
   }
   constructor() { }
