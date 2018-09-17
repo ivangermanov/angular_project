@@ -18,9 +18,8 @@ export class TaskService {
   }
 
   deleteTask (task: Task): Observable<Task> {
-    const id = typeof task === 'number' ? task : task.id;
     const index = TASKS.indexOf(task);
-    TASKS.splice(index);
+    TASKS.splice(index, 1);
     return of(task);
   }
   constructor() { }
