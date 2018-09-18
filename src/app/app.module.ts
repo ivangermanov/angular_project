@@ -7,6 +7,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { DepartmentsDetailComponent } from './departments-detail/departments-detail.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     TasksComponent,
     DepartmentsComponent,
     EmployeesComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    DepartmentsDetailComponent
   ],
   imports: [
     BrowserModule,

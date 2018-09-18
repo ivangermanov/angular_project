@@ -1,22 +1,4 @@
-<div *ngIf="selectedDepartment">
-
-  <h2>{{selectedDepartment.name}} Details</h2> 
-  <div><span>id: </span>{{selectedDepartment.id}}</div>
-  <div>
-    <label>name: 
-      <input [(ngModel)]="selectedDepartment.name" placeholder="name">
-    </label>
-  <div>
-    <label>role:
-      <input [(ngModel)]="selectedDepartment.role" placeholder="role">
-    </label>
-  </div>
-
-  </div>
-  
-</div>
-
-
+<app-departments-detail [department] = "selectedDepartment"></app-departments-detail>
 <div class="addDepartmentInfo">
   Department name: <input #depName>
   Department role: <input #depRole >
@@ -24,8 +6,9 @@
 </div>
 
 
-
 <h2>My Departments</h2> 
+
+
 <div class="grid-container">
 
  
@@ -36,6 +19,7 @@
     <button class="buttondeleteDepartments" type="button" (click)="delete(department)">X</button>
 
     </li>
+   
   
 </div>
 

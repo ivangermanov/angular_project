@@ -1,14 +1,18 @@
 import { Department } from './department';
+import { EMPLOYEES } from './mock-employees';
 
 export const DEPARTMENTS: Department[] = [
-  { id: 11, name: 'IT', role: 'programming' },
-  { id: 12, name: 'Marketing', role: 'advertising' },
-  { id: 13, name: 'Accountancy', role: 'TestRole' },
-  { id: 14, name: 'Media', role: 'TestRole' },
-  { id: 15, name: 'Production', role: 'TestRole' },
-  { id: 16, name: 'Service', role: 'TestRole' },
-  { id: 17, name: 'Manufacturing', role: 'TestRole' },
-  { id: 18, name: 'Secretary', role: 'TestRole' },
-  { id: 19, name: 'Management', role: 'TestRole' },
- 
+  new Department(1, 'IT', 'programming', [EMPLOYEES[0], EMPLOYEES[1]]),
+  new Department(2,  'Marketing', 'advertising', [EMPLOYEES[3], EMPLOYEES[4]]),
+  new Department(3, 'Accountancy',  'TestRole', ),
+  new Department(4, 'Management',  'TestRole',  ),
+  new Department(5, 'Media', 'TestRole', [EMPLOYEES[2]),
+  new Department(6, 'Production', 'TestRole', [EMPLOYEES[5]),
+  new Department(7, 'Service',  'TestRole', [EMPLOYEES[6], EMPLOYEES[7], EMPLOYEES[8]]),
+  new Department(8, 'Manufacturing',  'TestRole' ),
+  new Department(9, 'Secretary',  'TestRole', [EMPLOYEES[9]])
+
+  
+  
+  
 ];
