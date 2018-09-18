@@ -1,0 +1,21 @@
+<div *ngIf="task">
+  <h2>{{task.name}} Details</h2>
+  <div><span>id: </span>{{task.id}}</div>
+  <div><span>reason: </span>{{task.reason}}</div>
+  <div><span>minutes: </span>{{task.minutes}}</div>
+  <div>
+    employees:
+    <span *ngFor="let employee of task.employees; let last = last">
+      <span *ngIf="last; else notLast">{{employee.name}}</span>
+      <ng-template #notLast>
+        {{employee.name}},
+      </ng-template>
+    </span>
+  </div>
+  <div><span>department: </span>{{task.department.name}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="task.name" placeholder="name">
+    </label>
+  </div>
+</div>

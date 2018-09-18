@@ -1,24 +1,4 @@
-<div *ngIf="selectedTask">
-  <h2>{{selectedTask.name}} Details</h2>
-  <div><span>id: </span>{{selectedTask.id}}</div>
-  <div><span>reason: </span>{{selectedTask.reason}}</div>
-  <div><span>minutes: </span>{{selectedTask.minutes}}</div>
-  <div>
-    employees:
-    <span *ngFor="let employee of selectedTask.employees; let last = last">
-      <span *ngIf="last; else notLast">{{employee.name}}</span>
-      <ng-template #notLast>
-        {{employee.name}},
-      </ng-template>
-    </span>
-  </div>
-  <div><span>department: </span>{{selectedTask.department.name}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="selectedTask.name" placeholder="name">
-    </label>
-  </div>
-</div>
+<app-task-detail [task]="selectedTask"></app-task-detail>
 
 <div class='addTaskContainer'>
   <label class='addTaskItem'>Task name:
@@ -27,7 +7,7 @@
   <label class='addTaskItem'>Task reason:
     <input #taskReason />
   </label>
-  <label class='addTaskItem'>Task minutes:
+  <label class='addTaskItem'>Task time:
     <input #taskMinutes type="number" />
   </label>
   <label class='addTaskItem'>Department:
@@ -42,7 +22,7 @@
       <option *ngFor="let employee of employees" [ngValue]="employee">
         {{employee.name}}
       </option>
-      
+
     </select>
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
