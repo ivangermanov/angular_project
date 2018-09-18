@@ -25,7 +25,7 @@ export class DepartmentsComponent implements OnInit {
 
   getDepartments(): void {
     //this.departments = this.departmentService.getDepartments();
-    this.departmentService.getDepartments().subscribe(departments => this.departments = departments);
+    this.departments = this.departmentService.getDepartments();
   }
    
   onSelect(department: Department): void {

@@ -30,14 +30,13 @@ add(name: string, tel: string, doh: string): void {
     id = 1;
   }
   let newEmployee = new Employee(id, name, tel, doh);
-  this.employeeService.addEmployee(newEmployee).subscribe(employee => { this.employees.push(employee); });
-
+  this.employeeService.addEmployee(newEmployee).subscribe(() => { this.getEmployees(); });
 }
 
 
-// getEmployees(): void {
-//   this.employees = this.employeeService.getEmployees();
-// }
+getEmployees(): void {
+  this.employees = this.employeeService.getEmployees();
+}
 
 delete(employee: Employee): void {
   this.employees = this.employees.filter(e => e !== employee);

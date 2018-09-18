@@ -16,6 +16,8 @@ export class EmployeeService {
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
+    EMPLOYEES.push(employee);
+    this.employees$ = of(EMPLOYEES);
     return of(employee);
   }
 
@@ -23,6 +25,7 @@ export class EmployeeService {
   deleteEmployee(employee: Employee): Observable<Employee> {
     const index = EMPLOYEES.indexOf(employee);
     EMPLOYEES.splice(index, 1);
+    this.employees$ = of(EMPLOYEES);
     return of(employee);
   }
 

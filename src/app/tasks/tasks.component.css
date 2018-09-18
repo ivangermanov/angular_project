@@ -18,11 +18,13 @@
   border-radius: 4px;
 }
 
-.addTaskContainer {
-  padding: 20px;
-}
 .addTaskContainer .addTaskItem {
   padding: 10px;
+}
+
+.addTaskContainer .addTaskItem .multiple {
+  position: relative;
+  top: 2em;
 }
 
 li.selected:hover.tasks {

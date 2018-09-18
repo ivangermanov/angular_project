@@ -18,14 +18,13 @@
     </select>
   </label>
   <label class='addTaskItem'> Employees:
-    <select multiple [(ngModel)]="selectedEmployees" (change)="selectEmployees(selectedEmployees)">
+    <select multiple class="multiple" [(ngModel)]="selectedEmployees" (change)="selectEmployees(selectedEmployees)">
       <option *ngFor="let employee of employees" [ngValue]="employee">
         {{employee.name}}
       </option>
 
     </select>
   </label>
-  <!-- (click) passes input value to add() and then clears the input -->
   <button (click)="add(taskName.value, taskReason.value, taskMinutes.value, selectedEmployees, selectedDepartment);
                  taskName.value=''; taskReason.value=''; taskMinutes.value=''; selectedEmployees=''; selectedDepartment=''">
     Add!

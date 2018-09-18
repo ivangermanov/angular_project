@@ -4,8 +4,7 @@ import { Department } from '../department';
 import { Employee } from '../employee';
 
 import { TaskService } from '../task.service';
-//TODO: change after DEPARTMENTS gets a service
-import { DEPARTMENTS } from '../mock-departments';
+import { DepartmentService } from '../department.service';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -20,9 +19,7 @@ export class TasksComponent implements OnInit {
   selectedDepartment: Department;
   tasks: Task[];
   employees: Employee[];
-
-  //TODO: change after DEPARTMENTS gets a service
-  departments = DEPARTMENTS;
+  departments: Department[];
 
   selectTask(task: Task) {
     this.selectedTask = task;
@@ -61,13 +58,20 @@ export class TasksComponent implements OnInit {
     this.employees = this.employeeService.getEmployees();
   }
 
-  constructor(private taskService: TaskService,
-    private employeeService: EmployeeService) {
+  getDepartments(): void {
+    this.departments = this.departmentService.getDepartments();
+  }
+
+  constructor(
+    private taskService: TaskService,
+    private employeeService: EmployeeService,
+    private departmentService: DepartmentService) {
   }
 
   ngOnInit() {
     this.getTasks();
     this.getEmployees();
+    this.getDepartments();
     this.employeeService.employees$.subscribe(employees => {
       this.employees = employees;
     })

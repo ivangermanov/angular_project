@@ -10,8 +10,8 @@ export class DepartmentService {
 
   constructor() { }
 
-  getDepartments() : Observable<Department[]> {
-    return of (DEPARTMENTS); 
+  getDepartments() : Department[] {
+    return DEPARTMENTS; 
   }
   add(newdep: Department): Observable<Department>{
     DEPARTMENTS.push(newdep); 
