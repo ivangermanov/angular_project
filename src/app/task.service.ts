@@ -9,6 +9,10 @@ import { Task } from './task';
 })
 export class TaskService {
 
+  getTask(id: number): Observable<Task> {
+    return of(TASKS.find(task => task.id === id));
+  }
+
   getTasks(): Task[] {
     return TASKS;
   }

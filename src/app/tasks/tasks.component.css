@@ -66,3 +66,9 @@ button.delete {
   margin-top: 2px;
   margin-right: 5px;
 }
+
+/* Style the anchors */
+a {
+  text-decoration: none;
+  color: black;
+}

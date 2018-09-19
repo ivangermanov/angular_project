@@ -8,6 +8,8 @@ import { DepartmentsComponent } from './departments/departments.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { DepartmentsDetailComponent } from './departments-detail/departments-detail.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { DepartmentsDetailComponent } from './departments-detail/departments-det
     DepartmentsComponent,
     EmployeesComponent,
     TaskDetailComponent,
-    DepartmentsDetailComponent
+    DepartmentsDetailComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

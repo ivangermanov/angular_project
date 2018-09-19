@@ -1,5 +1,3 @@
-<app-task-detail [task]="selectedTask"></app-task-detail>
-
 <div class='addTaskContainer'>
   <label class='addTaskItem'>Task name:
     <input #taskName />
@@ -33,8 +31,10 @@
 
 <h2>My Tasks</h2>
 <div class="grid-container">
-  <li class="tasks" *ngFor="let task of tasks" [class.selected]="task === selectedTask" (click)="selectTask(task)">
-    <span class="grid-item">{{task.id}} </span> {{task.name}}
+  <li class="tasks" *ngFor="let task of tasks">
+    <a routerLink="/detail/tasks/{{task.id}}">
+      <span class="grid-item">{{task.id}} </span> {{task.name}}
+    </a>
     <button class="delete" title="delete task" (click)="delete(task)">x</button>
   </li>
 </div>

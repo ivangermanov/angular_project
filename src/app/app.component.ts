@@ -7,5 +7,5 @@ import { Employee } from './employee';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'The employee table';
+  title = 'Ivan-Vlad-Mara Inc.';
 }

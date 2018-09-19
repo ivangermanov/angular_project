@@ -14,16 +14,16 @@ import { EmployeeService } from '../employee.service';
 })
 export class TasksComponent implements OnInit {
 
-  selectedTask: Task;
+  //selectedTask: Task;
   selectedEmployees: Employee[];
   selectedDepartment: Department;
   tasks: Task[];
   employees: Employee[];
   departments: Department[];
 
-  selectTask(task: Task) {
-    this.selectedTask = task;
-  }
+  // selectTask(task: Task) {
+  //   this.selectedTask = task;
+  // }
 
   selectEmployees(employees: Employee[]) {
     this.selectedEmployees = employees;
