@@ -10,6 +10,8 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { DepartmentsDetailComponent } from './departments-detail/departments-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { AppRoutingModule } from './/app-routing.module';
     EmployeesComponent,
     TaskDetailComponent,
     DepartmentsDetailComponent,
-    DashboardComponent
+    DashboardComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,

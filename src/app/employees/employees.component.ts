@@ -46,7 +46,7 @@ delete(employee: Employee): void {
   constructor(private employeeService: EmployeeService) {  }
 
   ngOnInit() {
-    //this.getEmployees();
+    this.getEmployees();
     this.employeeService.employees$.subscribe(employees => {
       this.employees = employees;
     })

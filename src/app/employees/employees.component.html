@@ -38,14 +38,16 @@
 <div class = "listItems">
 
   <h2>My Employees</h2>
-  <ul class="employees">
-    <li *ngFor="let employee of employees"
-[class.selected]="employee === selectedEmployee"
-    (click)="onSelect(employee)">
+  <div class="employees">
+    <li *ngFor="let employee of employees">
+<a routerLink="/detail/{{employee.id}}">
 
       <span class="badge">{{employee.id}}</span> {{employee.name}}
-        <button class="delete" title="delete Employee" (click)="delete(employee)">x</button>
+
+      </a>
+      <button class="delete" title="delete Employee" (click)="delete(employee)">x</button>
+
     </li>
-  </ul>
+  </div>
 
 </div>
