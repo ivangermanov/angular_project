@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/tasks/:id', component: TaskDetailComponent },
-  { path: 'detail/:id', component: EmployeeDetailComponent },
+  { path: 'detail/employee/:id', component: EmployeeDetailComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 

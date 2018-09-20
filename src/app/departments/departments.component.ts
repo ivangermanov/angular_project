@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Department } from '../department';
-//import { DEPARTMENTS } from '../mock-departments';
+import { Employee } from '../employee';
 
-import { DepartmentService} from '../department.service';
+import { DepartmentService } from '../department.service';
+import { EmployeeService } from '../employee.service';
+
 @Component({
   selector: 'app-departments',
   templateUrl: './departments.component.html',
@@ -11,23 +13,25 @@ import { DepartmentService} from '../department.service';
 })
 export class DepartmentsComponent implements OnInit {
 
+  departments: Department[];
+  employees: Employee[];
 
-  //departments = DEPARTMENTS;
-  departments: Department[]; 
-
-  constructor(private departmentService: DepartmentService) { }
+  constructor(private departmentService: DepartmentService, private employeeService: EmployeeService) { }
 
   ngOnInit() {
     this.getDepartments();
   }
-    
+
   selectedDepartment: Department;
 
   getDepartments(): void {
-    //this.departments = this.departmentService.getDepartments();
     this.departments = this.departmentService.getDepartments();
   }
-   
+
+  getEmployees(): void {
+    this.employees = this.employeeService.getEmployees();
+  }
+
   onSelect(department: Department): void {
     this.selectedDepartment = department;
   }
@@ -41,12 +45,12 @@ export class DepartmentsComponent implements OnInit {
     else {
       id = 1;
     }
-   // DEPARTMENTS.push(new Department(id, name, role)); old version
-   let newdep = new Department(id, name, role);
-   this.departmentService.add(newdep).subscribe(() => {this.getDepartments();})
+
+    let newdep = new Department(id, name, role);
+    this.departmentService.add(newdep).subscribe(() => { this.getDepartments(); })
   }
 
   delete(dep: Department) {
-    this.departmentService.delete(dep).subscribe(() => {this.getDepartments();})
+    this.departmentService.delete(dep).subscribe(() => { this.getDepartments(); })
   }
 }

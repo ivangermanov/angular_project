@@ -54,9 +54,9 @@ export class TasksComponent implements OnInit {
     this.tasks = this.taskService.getTasks();
   }
 
-  //getEmployees(): void {
-    //this.employees = this.employeeService.getEmployees();
-  //}
+  getEmployees(): void {
+    this.employees = this.employeeService.getEmployees();
+  }
 
   getDepartments(): void {
     this.departments = this.departmentService.getDepartments();
@@ -72,9 +72,6 @@ export class TasksComponent implements OnInit {
     this.getTasks();
     this.getEmployees();
     this.getDepartments();
-    this.employeeService.employees$.subscribe(employees => {
-      this.employees = employees;
-    })
   }
 
 }
