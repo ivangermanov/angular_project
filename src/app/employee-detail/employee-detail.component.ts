@@ -13,6 +13,7 @@ import {EmployeeService} from '../employee.service';
 export class EmployeeDetailComponent implements OnInit {
 
 @Input() employee: Employee;
+depName:string;
 
   constructor(  private route: ActivatedRoute,
                 private employeeService: EmployeeService,
@@ -27,6 +28,12 @@ getEmployee(): void {
   this.employeeService.getEmployee(id)
     .subscribe(employee => this.employee = employee);
 }
+/*
+getDepartment(): void {
+  const id = +this.getEmployee().depId;
+  this.employeeService.getDepartmentName(id)
+    .subscribe(depName => this.depName = depName);
+}*/
 
 goBack(): void {
   this.location.back();
