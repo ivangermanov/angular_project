@@ -1,21 +1,40 @@
 import { Injectable } from '@angular/core';
-import {Department} from './department'; 
-import{DEPARTMENTS } from './mock-departments';
-import {Observable, of} from 'rxjs';
+import { Employee } from './employee';
+import { Department } from './department';
+import { DEPARTMENTS } from './mock-departments';
+import { Observable, of } from 'rxjs';
+import { EmployeeService } from './employee.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
 
-  constructor() { }
+  constructor(private employeeService: EmployeeService) { }
 
-  getDepartments() : Department[] {
-    return DEPARTMENTS; 
+  getDepartment(id: number): Observable<Department> {
+    return of(DEPARTMENTS.find(department => department.id === id));
   }
-  add(newdep: Department): Observable<Department>{
-    DEPARTMENTS.push(newdep); 
-    return of (newdep);
+
+  getDepartments(): Department[] {
+    return DEPARTMENTS;
+  }
+
+  add(newdep: Department): Observable<Department> {
+    DEPARTMENTS.push(newdep);
+    return of(newdep);
+  }
+
+  getEmployees(department: Department): Employee[] {
+    let allEmployees = this.employeeService.getEmployees();
+    let employees = Array<Employee>();
+    allEmployees.forEach(employee => {
+      if (employee.department === department) {
+        employees.push(employee);
+      }
+    });
+
+    return employees;
   }
 
   delete(dep: Department): Observable<Department> {

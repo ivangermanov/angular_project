@@ -20,6 +20,7 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit() {
     this.getDepartments();
+    this.getEmployees();
   }
 
   selectedDepartment: Department;

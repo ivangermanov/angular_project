@@ -14,28 +14,25 @@ import { EmployeeService } from '../employee.service';
 })
 export class TasksComponent implements OnInit {
 
-  //selectedTask: Task;
   selectedEmployees: Employee[];
   selectedDepartment: Department;
   tasks: Task[];
   employees: Employee[];
   departments: Department[];
 
-  // selectTask(task: Task) {
-  //   this.selectedTask = task;
-  // }
-
   selectEmployees(employees: Employee[]) {
     this.selectedEmployees = employees;
+    this.getEmployees()
   }
 
   selectDepartment(department: Department) {
     this.selectedDepartment = department;
+    this.getEmployees();
   }
 
   add(name: string, reason: string, minutes: number, employees: Employee[], department: Department): void {
     name = name.trim();
-    if (!name) { return; }
+    if (!name || !employees || !department) { return; }
     let id;
     if (this.tasks.length != 0) {
       id = this.tasks[this.tasks.length - 1].id + 1;
@@ -55,7 +52,7 @@ export class TasksComponent implements OnInit {
   }
 
   getEmployees(): void {
-    this.employees = this.employeeService.getEmployees();
+    this.employees = this.departmentService.getEmployees(this.selectedDepartment);
   }
 
   getDepartments(): void {
@@ -70,7 +67,6 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.getTasks();
-    this.getEmployees();
     this.getDepartments();
   }
 

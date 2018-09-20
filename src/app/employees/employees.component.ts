@@ -24,7 +24,7 @@ export class EmployeesComponent implements OnInit {
 
   add(name: string, tel: string, doh: string, department: Department): void {
     name = name.trim();
-    if (!name) { return; }
+    if (!name || !department) { return; }
     let id: number;
     if (this.employees.length != 0) {
       id = this.employees[this.employees.length - 1].id + 1;
