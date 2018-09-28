@@ -5,8 +5,8 @@
   <label class='addTaskItem'>Task reason:
     <input #taskReason />
   </label>
-  <label class='addTaskItem'>Task time:
-    <input #taskMinutes type="number" />
+  <label class='addTaskItem'>Task due date:
+    <input #taskDueDate placeholder="YYYY-mm-dd"/>
   </label>
   <label class='addTaskItem'>Department:
     <select [(ngModel)]="selectedDepartment" (change)="selectDepartment(selectedDepartment)">
@@ -23,8 +23,8 @@
 
     </select>
   </label>
-  <button (click)="add(taskName.value, taskReason.value, taskMinutes.value, selectedEmployees, selectedDepartment);
-                 taskName.value=''; taskReason.value=''; taskMinutes.value=''; selectedEmployees=''; selectedDepartment=''">
+  <button (click)="add(taskName.value, taskReason.value, taskDueDate.value, selectedEmployees, selectedDepartment);
+                 taskName.value=''; taskReason.value=''; taskDueDate.value='';">
     Add!
   </button>
 </div>
