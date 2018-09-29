@@ -23,7 +23,7 @@ if($num>0){
  
     // tasks array
     $tasks_arr=array();
- 
+    $tasks_arr["records"]=array();
     // retrieve our table contents
     // fetch() is faster than fetchAll()
     // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
@@ -34,29 +34,33 @@ if($num>0){
         extract($row);
         
         $task_item=array(
-            "id" => $id,
-            "department_id" => $department_id,
-            "employee_id" => $employee_id,
+            "id" => (int)$id,
+            "department_id" => (int)$department_id,
+            "employee_id" => (int)$employee_id,
             "name_task" => $name_task,
             "reason" => $reason,
             "due_date" => $due_date
         );
         
-        array_push($tasks_arr, $task_item);
+        array_push($tasks_arr["records"], $task_item);
     }
-
+    
     $json_tasks_arr = array();
+    $json_tasks_arr["records"] = array();
     $next_index = 0;
     $finished = FALSE;
 
     for ($i=0; TRUE; $i++) { 
-        array_push($json_tasks_arr, $tasks_arr[$next_index]);
-        settype($json_tasks_arr[$i]['employee_id'], 'array');
+        array_push($json_tasks_arr["records"], $tasks_arr["records"][$next_index]);
+        settype($json_tasks_arr["records"][$i]['employee_id'], 'array');
         $next_index = $next_index + 1;
-        while ($json_tasks_arr[$i]['id'] == $tasks_arr[$next_index]['id']) {
-            array_push($json_tasks_arr[$i]['employee_id'], $tasks_arr[$next_index]['employee_id']);
+        if ($next_index >= sizeof($tasks_arr["records"])) {
+            break;
+        }
+        while ($json_tasks_arr["records"][$i]['id'] == $tasks_arr["records"][$next_index]['id']) {
+            array_push($json_tasks_arr["records"][$i]['employee_id'], $tasks_arr["records"][$next_index]['employee_id']);
             $next_index = $next_index + 1;
-            if ($next_index >= sizeof($tasks_arr)) {
+            if ($next_index >= sizeof($tasks_arr["records"])) {
                 $finished = TRUE;
                 break;
             }
@@ -66,7 +70,7 @@ if($num>0){
         }
     }
 
-    print_r(json_encode($json_tasks_arr));
+    echo json_encode($json_tasks_arr);
 }
  
 else{

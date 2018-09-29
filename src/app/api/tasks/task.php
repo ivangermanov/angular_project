@@ -27,7 +27,8 @@ class Task{
                   JOIN employeetask et
                   ON t.id = et.task_id
                   JOIN employee e
-                  ON et.employee_id = e.id";
+                  ON et.employee_id = e.id
+                  ORDER BY t.id";
     
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -123,34 +124,39 @@ class Task{
         
         if($num > 0) {
             $tasks_arr=array();
+            $tasks_arr["records"]=array();
 
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
 
                 $task_item=array(
-                    "id" => $id,
-                    "department_id" => $department_id,
-                    "employee_id" => $employee_id,
+                    "id" => (int)$id,
+                    "department_id" => (int)$department_id,
+                    "employee_id" => (int)$employee_id,
                     "name_task" => $name_task,
                     "reason" => $reason,
                     "due_date" => $due_date
                 );
                 
-                array_push($tasks_arr, $task_item);
+                array_push($tasks_arr["records"], $task_item);
             }
 
             $json_tasks_arr = array();
+            $json_tasks_arr["records"] = array();
             $next_index = 0;
             $finished = FALSE;
 
             for ($i=0; TRUE; $i++) { 
-                array_push($json_tasks_arr, $tasks_arr[$next_index]);
-                settype($json_tasks_arr[$i]['employee_id'], 'array');
+                array_push($json_tasks_arr["records"], $tasks_arr["records"][$next_index]);
+                settype($json_tasks_arr["records"][$i]['employee_id'], 'array');
                 $next_index = $next_index + 1;
-                while ($json_tasks_arr[$i]['id'] == $tasks_arr[$next_index]['id']) {
-                    array_push($json_tasks_arr[$i]['employee_id'], $tasks_arr[$next_index]['employee_id']);
+                if ($next_index >= sizeof($tasks_arr["records"])) {
+                    break;
+                }
+                while ($json_tasks_arr["records"][$i]['id'] == $tasks_arr["records"][$next_index]['id']) {
+                    array_push($json_tasks_arr["records"][$i]['employee_id'], $tasks_arr["records"][$next_index]['employee_id']);
                     $next_index = $next_index + 1;
-                    if ($next_index >= sizeof($tasks_arr)) {
+                    if ($next_index >= sizeof($tasks_arr["records"])) {
                         $finished = TRUE;
                         break;
                     }
@@ -160,17 +166,17 @@ class Task{
                 }
             }
 
+            // set values to object properties
+            $this->id = $json_tasks_arr["records"][0]['id'];
+            $this->department_id = $json_tasks_arr["records"][0]['department_id'];
+            $this->name_task = $json_tasks_arr["records"][0]['name_task'];
+            $this->reason = $json_tasks_arr["records"][0]['reason'];
+            $this->employee_id = $json_tasks_arr["records"][0]['employee_id'];
+            $this->due_date = $json_tasks_arr["records"][0]['due_date'];
+            
         } else {
                 echo json_encode(array("message" => "No tasks found."));
         }
-
-        // set values to object properties
-        $this->id = $json_tasks_arr[0]['id'];
-        $this->department_id = $json_tasks_arr[0]['department_id'];
-        $this->name_task = $json_tasks_arr[0]['name_task'];
-        $this->reason = $json_tasks_arr[0]['reason'];
-        $this->employee_id = $json_tasks_arr[0]['employee_id'];
-        $this->due_date = $json_tasks_arr[0]['due_date'];
     }
 
     // update the product

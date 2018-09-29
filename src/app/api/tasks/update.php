@@ -18,31 +18,22 @@ $db = $database->getConnection();
 $task = new Task($db);
  
 // get id of task to be edited
-//TODO: use actual data
-//$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"));
 // set ID property of task to be edited
-
-//$task->id = $data->id;
-
-$task->id = 1;
+$task->id = $data->id;
 
 // set task property values
-// $task->name = $data->name;
-// $task->price = $data->price;
-// $task->description = $data->description;
-// $task->category_id = $data->category_id;
-$task->department_id = 3;
-$task->name_task = 'testUpdate';
-$task->reason = 'TestUpdate';
-$task->employee_id = [15,16,17];
-$task->due_date = '2019-01-01';
-
-
+$task->name = $data->name;
+$task->department_id = $data->department_id;
+$task->name_task = $data->name_task;
+$task->reason = $data->reason;
+$task->employee_id = $data->employee_id;
+$task->due_date = $data->due_date;
 
 // update the task
 if($task->update()){
     echo '{';
-        echo '"message": "task was updated."';
+        echo '"message": "Task was updated."';
     echo '}';
 }
  

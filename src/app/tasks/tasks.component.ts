@@ -48,7 +48,9 @@ export class TasksComponent implements OnInit {
   }
 
   getTasks(): void {
-    this.tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = this.taskService.decodeTasks(tasks);
+    })
   }
 
   getEmployees(): void {

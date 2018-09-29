@@ -19,15 +19,15 @@ $task = new Task($db);
  
 // get posted data
 //TODO: Get actual data
-#$data = json_decode(file_get_contents("php://input"));
-
+$data = json_decode(file_get_contents("php://input"));
+print_r($data);
 // set task property values
-$task->id = 10;//$data->id;
-$task->department_id = 5;//$data->department_id;
-$task->name_task = 'test';//$data->name_task;
-$task->reason = 'apitest';//$data->reason;
-$task->due_date = '2018-12-12';//date('Y-m-d');
-$task->employee_id = [13, 14, 15];//$data->employee_id;
+$task->id = $data->id; //10;//
+$task->department_id = $data->department_id; //5;//
+$task->name_task = $data->name_task; //'test';//
+$task->reason = $data->reason; //'apitest';//
+$task->due_date = $data->due_date; //'2018-12-12';//
+$task->employee_id = $data->employee_id; //[13, 14, 15];//
  
 // create the task
 if($task->create()){

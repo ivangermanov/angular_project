@@ -19,17 +19,15 @@ $db = $database->getConnection();
 $task = new Task($db);
  
 // get task id
-//TODO: Use actual data
-//$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"));
  
 // set task id to be deleted
-//$task->id = $data->id;
-$task->id = 1;
+$task->id = $data->id;
  
 // delete the task
 if($task->delete()){
     echo '{';
-        echo '"message": "task was deleted."';
+        echo '"message": "Task was deleted."';
     echo '}';
 }
  
