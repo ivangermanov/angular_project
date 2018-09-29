@@ -214,7 +214,7 @@ class Task{
         $this->id=htmlspecialchars(strip_tags($this->id));
 
         $query = "DELETE FROM employeetask WHERE task_id=:id";
-        
+
         $stmt = $this->conn->prepare($query);
         
         $stmt->bindParam(':id', $this->id);
@@ -250,5 +250,29 @@ class Task{
             $this->conn->rollBack();
             return FALSE;
         }
+    }
+
+    // delete the product
+    function delete(){
+    
+        // delete query
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+    
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+    
+        // sanitize
+        $this->id=htmlspecialchars(strip_tags($this->id));
+    
+        // bind id of record to delete
+        $stmt->bindParam(1, $this->id);
+    
+        // execute query
+        if($stmt->execute()){
+            return true;
+        }
+    
+        return false;
+        
     }
 }
