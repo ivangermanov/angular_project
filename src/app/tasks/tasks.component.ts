@@ -30,7 +30,7 @@ export class TasksComponent implements OnInit {
     this.getEmployees();
   }
 
-  add(name: string, reason: string, minutes: number, employees: Employee[], department: Department): void {
+  add(name: string, reason: string, minutes: string, employees: Employee[], department: Department): void {
     name = name.trim();
     if (!name || !employees || !department) { return; }
     let id;
