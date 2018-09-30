@@ -1,12 +1,14 @@
-<div class='addTaskContainer'>
-  <label class='addTaskItem'>Task name:
+<h2>Tasks</h2>
+<app-task-search></app-task-search>
+<div class='addTaskContainer input-group input-group-sm justify-content-center align-items-center'>
+  <label class='addTaskItem center-block'>Task name:
     <input #taskName />
   </label>
   <label class='addTaskItem'>Task reason:
     <input #taskReason />
   </label>
   <label class='addTaskItem'>Task due date:
-    <input #taskDueDate placeholder="YYYY-mm-dd"/>
+    <input #taskDueDate name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" placeholder="YYYY-mm-dd" (click)="d.toggle()" />
   </label>
   <label class='addTaskItem'>Department:
     <select [(ngModel)]="selectedDepartment" (change)="selectDepartment(selectedDepartment)">
@@ -15,8 +17,8 @@
       </option>
     </select>
   </label>
-  <label class='addTaskItem'> Employees:
-    <select multiple class="multiple" [(ngModel)]="selectedEmployees" (change)="selectEmployees(selectedEmployees)">
+  <label class='addTaskItem' id="employeeSelect"> Employees:
+    <select class="mdb-select" multiple class="multiple" [(ngModel)]="selectedEmployees" (change)="selectEmployees(selectedEmployees)">
       <option *ngFor="let employee of employees" [ngValue]="employee">
         {{employee.name}}
       </option>
@@ -29,7 +31,6 @@
   </button>
 </div>
 
-<h2>My Tasks</h2>
 <div class="grid-container">
   <li class="tasks" *ngFor="let task of tasks">
     <a routerLink="/detail/tasks/{{task.id}}">
@@ -38,5 +39,3 @@
     <button class="delete" title="delete task" (click)="delete(task)">x</button>
   </li>
 </div>
-
-<app-task-search></app-task-search>

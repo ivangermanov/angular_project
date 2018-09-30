@@ -7,13 +7,17 @@ import { TaskService } from '../task.service';
 import { DepartmentService } from '../department.service';
 import { EmployeeService } from '../employee.service';
 
+import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css']
+  styleUrls: ['./tasks.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class TasksComponent implements OnInit {
 
+  date: { year: number, month: number, day: number };
   selectedEmployees: Employee[];
   selectedDepartment: Department;
   tasks: Task[];
@@ -63,8 +67,11 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private employeeService: EmployeeService,
-    private departmentService: DepartmentService) {
+    private departmentService: DepartmentService,
+    config: NgbDatepickerConfig
+  ) {
+    let date = new Date();
+    config.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
   }
 
   ngOnInit() {
