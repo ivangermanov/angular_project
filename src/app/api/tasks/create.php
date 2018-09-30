@@ -18,9 +18,8 @@ $db = $database->getConnection();
 $task = new Task($db);
  
 // get posted data
-//TODO: Get actual data
 $data = json_decode(file_get_contents("php://input"));
-print_r($data);
+
 // set task property values
 $task->id = $data->id; //10;//
 $task->department_id = $data->department_id; //5;//

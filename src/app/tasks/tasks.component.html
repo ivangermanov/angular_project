@@ -23,7 +23,7 @@
 
     </select>
   </label>
-  <button (click)="add(taskName.value, taskReason.value, taskDueDate.value, selectedEmployees, selectedDepartment);
+  <button class="btn btn-primary" (click)="add(taskName.value, taskReason.value, taskDueDate.value, selectedEmployees, selectedDepartment);
                  taskName.value=''; taskReason.value=''; taskDueDate.value='';">
     Add!
   </button>
@@ -38,3 +38,5 @@
     <button class="delete" title="delete task" (click)="delete(task)">x</button>
   </li>
 </div>
+
+<app-task-search></app-task-search>
