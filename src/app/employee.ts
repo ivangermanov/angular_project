@@ -1,5 +1,4 @@
 import { Department } from './department';
-import { DEPARTMENTS } from './mock-departments';
 
 export class Employee {
   constructor(

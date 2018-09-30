@@ -29,7 +29,7 @@ create table Task
    name_task varchar(50),
    reason varchar(100),
    due_date date,
-   primary key (task_id),
+   primary key (id),
    foreign key(department_id) references department(id)
 );
 

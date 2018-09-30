@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     AppRoutingModule
   ],
   providers: [],

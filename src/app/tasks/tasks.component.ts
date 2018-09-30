@@ -30,7 +30,7 @@ export class TasksComponent implements OnInit {
     this.getEmployees();
   }
 
-  add(name: string, reason: string, minutes: string, employees: Employee[], department: Department): void {
+  add(name: string, reason: string, dueDate: string, employees: Employee[], department: Department): void {
     name = name.trim();
     if (!name || !employees || !department) { return; }
     let id;
@@ -39,7 +39,7 @@ export class TasksComponent implements OnInit {
     } else {
       id = 1;
     }
-    let newTask = new Task(id, name, reason, minutes, employees, department);
+    let newTask = new Task(id, name, reason, dueDate, employees, department);
     this.taskService.addTask(newTask).subscribe(() => { this.getTasks(); });
   }
 
@@ -48,7 +48,9 @@ export class TasksComponent implements OnInit {
   }
 
   getTasks(): void {
-    this.tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = this.taskService.decodeTasks(tasks);
+    })
   }
 
   getEmployees(): void {

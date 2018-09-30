@@ -2,10 +2,17 @@
 class Database{
  
     // specify your own database credentials
+<<<<<<< HEAD
     private $host = "localhost";
     private $db_name = "dbi380810";
     private $username = "root";
     private $password = "";
+=======
+    private $host = "studmysql01.fhict.local";
+    private $db_name = "dbi380810";
+    private $username = "dbi380810";
+    private $password = "ivangabrielmara";
+>>>>>>> restapi
     public $conn;
  
     // get the database connection
