@@ -1,17 +1,13 @@
-
-
-
-
 <div *ngIf="selectedEmployee">
-<h2>{{selectedEmployee.name | uppercase}} Details</h2>
-<div><span>id: </span>{{selectedEmployee.id}}</div>
-<div><span>Date of Hire: </span>{{selectedEmployee.doh}}</div>
-<div><span>Telephone: </span>{{selectedEmployee.tel}}</div>
-<div>
-  <label>name:
-    <input [(ngModel)]="selectedEmployee.name" placeholder="name"/>
-  </label>
-</div>
+  <h2>{{selectedEmployee.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedEmployee.id}}</div>
+  <div><span>Date of Hire: </span>{{selectedEmployee.doh}}</div>
+  <div><span>Telephone: </span>{{selectedEmployee.tel}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedEmployee.name" placeholder="name" />
+    </label>
+  </div>
 </div>
 
 <div class='addEmployeeContainer'>
@@ -27,27 +23,28 @@
     <input #employeeTel />
   </label>
 
+  <label class='addEmployeeItem'>Department:
+    <select [(ngModel)]="selectedDepartment" (change)="selectDepartment(selectedDepartment)">
+      <option *ngFor="let department of departments" [ngValue]="department">
+        {{department.name}}
+      </option>
+    </select>
+  </label>
 
-
-  <button (click)="add(employeeName.value,  employeeTel.value, employeeDOH.value);
+  <button (click)="add(employeeName.value,  employeeTel.value, employeeDOH.value, selectedDepartment);
                  employeeName.value='';  employeeTel.value=''; employeeDOH.value='';">
     Add!
   </button>
 </div>
 
-<div class = "listItems">
-
+<div class="listItems">
   <h2>My Employees</h2>
   <div class="employees">
     <li *ngFor="let employee of employees">
-<a routerLink="/detail/{{employee.id}}">
-
-      <span class="badge">{{employee.id}}</span> {{employee.name}}
-
+      <a routerLink="/detail/employees/{{employee.id}}">
+        <span class="badge">{{employee.id}}</span> {{employee.name}}
       </a>
       <button class="delete" title="delete Employee" (click)="delete(employee)">x</button>
-
     </li>
   </div>
-
 </div>

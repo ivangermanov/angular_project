@@ -21,6 +21,7 @@ export class TaskDetailComponent implements OnInit {
   ngOnInit() {
     this.getTask();
   }
+  
   getTask(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.taskService.getTask(id)

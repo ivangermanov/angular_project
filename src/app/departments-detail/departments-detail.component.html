@@ -1,5 +1,4 @@
 <div *ngIf="department">
-
   <h2>{{department.name}} Details</h2> 
   <div><span>id: </span>{{department.id}}</div>
   <div>
@@ -11,12 +10,14 @@
     </label>
     <div>
       employees:
-      <span *ngFor="let employee of department.employees; let last = last">
-        <span *ngIf="last; else notLast">{{employee.name}}</span>
-        <ng-template #notLast>
-          {{employee.name}},
-        </ng-template>
-      </span>
+      <label>
+        <span *ngFor="let employee of employees; let last = last">
+          <span *ngIf="last; else notLast">{{employee.name}}</span>
+          <ng-template #notLast>
+            {{employee.name}},
+          </ng-template>
+        </span>
+      </label>
     </div>
   </div>
   
