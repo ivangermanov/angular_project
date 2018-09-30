@@ -1,4 +1,8 @@
 /* HeroesComponent's private CSS styles */
+* {
+  box-sizing: unset;
+}
+
 .selected {
   background-color: #CFD8DC !important;
   color: white;
@@ -19,7 +23,12 @@
 }
 
 .addTaskContainer .addTaskItem {
-  padding: 10px;
+  padding: 5px;
+}
+
+#employeeSelect {
+  position: relative;
+  bottom: 2.1em;
 }
 
 .addTaskContainer .addTaskItem .multiple {
@@ -40,6 +49,7 @@ li:hover.tasks {
 
 .grid-container {
   display: grid;
+  justify-items: center;
   grid-template-columns: auto auto auto;
   background-color: rgb(193, 240, 24);
 }
@@ -63,7 +73,6 @@ button.delete {
   float: right;
   background-color: gray !important;
   color: white;
-  margin-top: 2px;
   margin-right: 5px;
 }
 

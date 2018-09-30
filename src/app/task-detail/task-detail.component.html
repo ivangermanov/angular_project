@@ -1,25 +1,27 @@
-<button (click)="goBack()">Go back</button>
-<div *ngIf="task">
-  <h2>{{task.name}} Details</h2>
-  <div><span>id: </span>{{task.id}}</div>
-  <div><span>reason: </span>{{task.reason}}</div>
-  <div><span>due date: </span>{{task.dueDate}}</div>
-  <div>
-    <label>
-      employees:
-      <span *ngFor="let employee of task.employees; let last = last">
-        <span *ngIf="last; else notLast">{{employee.name}}</span>
-        <ng-template #notLast>
-          {{employee.name}},
-        </ng-template>
-      </span>
-    </label>
+<div class="container" *ngIf="task">
+  <div class="row p-3">
+    <div class="col"></div>
+    <div class="col card" style="width: 18rem;">
+      <button (click)="goBack()">Go back!</button>
+      <div class="card-body">
+        <h5 class="card-title"><input [(ngModel)]="task.name" placeholder="name"></h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: {{task.id}}</li>
+        <li class="list-group-item">Reason: {{task.reason}}</li>
+        <li class="list-group-item">Employees:
+          <span *ngFor="let employee of task.employees; let last = last">
+            <span *ngIf="last; else notLast">{{employee.name}}</span>
+            <ng-template #notLast>
+              {{employee.name}},
+            </ng-template>
+          </span>
+        </li>
+        <li class="list-group-item">Due Date: {{task.dueDate}}</li>
+        <li class="list-group-item">Department: {{task.department.name}}</li>
+      </ul>
+      <button (click)="updateTask()">Update!</button>
+    </div>
+    <div class="col"></div>
   </div>
-  <div><span>department: </span>{{task.department.name}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="task.name" placeholder="name">
-    </label>
-  </div>
-  <button (click)="updateTask()">Update!</button>
 </div>
