@@ -281,4 +281,33 @@ class Task{
         return false;
         
     }
+
+    // search products
+    function search($keyword){
+ 
+        // select all query
+        $query = "SELECT t.id, t.department_id, et.employee_id, t.name_task, t.reason, t.due_date
+                  FROM " . $this->table_name . " t
+                  JOIN employeetask et
+                  ON t.id = et.task_id
+                  JOIN employee e
+                  ON et.employee_id = e.id
+                  WHERE name_task LIKE ?
+                  ORDER BY t.id";
+    
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+    
+        // sanitize
+        $keyword=htmlspecialchars(strip_tags($keyword));
+        $keyword = "%{$keyword}%";
+    
+        // bind
+        $stmt->bindParam(1, $keyword);
+    
+        // execute query
+        $stmt->execute();
+    
+        return $stmt;
+    }
 }
