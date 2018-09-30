@@ -25,8 +25,7 @@ class Department{
                 
                 FROM " . $this->table_name . " d";
                 
-              //  ORDER BY
-               //     p.created DESC";
+              
      
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -37,6 +36,28 @@ class Department{
         return $stmt;
     }
 
-
-
+    // search departments
+    function search($keywords){
+ 
+    // select all query
+    $query = "SELECT
+                d.id, d.name_department, d.role
+              FROM " . $this->table_name . " d
+              WHERE d.name_department LIKE ?";
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+ 
+    // sanitize
+    $keywords=htmlspecialchars(strip_tags($keywords));
+    $keywords = "%{$keywords}%";
+ 
+    // bind
+    $stmt->bindParam(1, $keywords);
+  
+ 
+    // execute query
+    $stmt->execute();
+ 
+    return $stmt;
+    }
 }
