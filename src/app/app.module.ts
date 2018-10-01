@@ -13,6 +13,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
