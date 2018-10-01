@@ -4,6 +4,7 @@ import { Department } from '../department';
 
 import { EmployeeService } from '../employee.service';
 import { DepartmentService } from '../department.service';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-employees',
@@ -11,6 +12,8 @@ import { DepartmentService } from '../department.service';
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
+
+public model: any;
 
   employees: Employee[];
   departments: Department[];
