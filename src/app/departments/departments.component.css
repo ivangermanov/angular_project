@@ -21,12 +21,12 @@
     border-radius: 4px;
   }
   
-  .addDepartmentInfo {
-    padding:.3em 0 ;
+  .addDepartmentContainer .addDepartmentItem {
+    padding: 10px;
   }
 
   
-  .buttondeleteDepartments{
+  button.deleteDepartments{
     
     float: right;
     background-color: gray !important;

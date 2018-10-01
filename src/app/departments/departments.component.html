@@ -1,14 +1,12 @@
-<h2>Departments</h2>
+<h2 class="text-center"> Departments</h2>
 <app-department-search></app-department-search>
-<div class="addDepartmentInfo input-group input-group-sm justify-content-center align-items-center">
-  <label class='addDepartmentInfo center-block'> Department name: 
+<div class="addDepartmentContainer input-group input-group-sm justify-content-center align-items-center">
+  <label class='addDepartmentItem center-block'> Department name: 
       <input #depName/>
   </label>
-  <label class='addDepartmentInfo'>Department role:
+  <label class='addDepartmentItem'>Department role:
       <input #depRole>
   </label>
-
-   
   <button class="btn btn-primary" (click)="add(depName.value, depRole.value); depName.value=''; depRole.value=''">Add</button>
 </div>
 
@@ -17,16 +15,11 @@
 
 
 <div class="grid-container">
-
-
   <li class="departments" *ngFor="let department of departments" (click)="onSelect(department)">
       <a routerLink="/detail/departments/{{department.id}}">
         <span class="grid-item"> {{department.id}} </span> {{department.name}}
       </a>
-    <button class="buttondeleteDepartments" title="delete task" (click)="delete(department)">x</button>
-
+    <button class="deleteDepartments" title="delete task" (click)="delete(department)">x</button>
   </li>
-
-
 </div>
 
