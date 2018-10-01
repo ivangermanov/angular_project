@@ -26,7 +26,7 @@ export class DepartmentsComponent implements OnInit {
   selectedDepartment: Department;
 
   getDepartments(): void {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService.getDepartments().subscribe((departments) => this.departments=departments["records"]);
   }
 
   getEmployees(): void {

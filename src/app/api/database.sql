@@ -5,8 +5,8 @@ drop table if exists Department;
 
 create table Department
 (
-   id int not null AUTO_INCREMENT,
-   name varchar(50),
+   id int not null auto_increment,
+   name_department varchar(50),
    role varchar(50),
    primary key(id)
 );
@@ -14,10 +14,10 @@ create table Department
 create table Employee
 (
    id int not null auto_increment,
-   department_id int not null,
-   name varchar(55),
-   date_of_hire date,
+   name_employee varchar(55),
+   department_id int not null, 
    telephone varchar(12),
+   date_of_hire date,
    primary key (id),
    foreign key(department_id) references department(id)
 );

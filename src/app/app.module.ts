@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { TaskSearchComponent } from './task-search/task-search.component';
+import { DepartmentSearchComponent } from './department-search/department-search.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { TaskSearchComponent } from './task-search/task-search.component';
     DepartmentDetailComponent,
     DashboardComponent,
     EmployeeDetailComponent,
-    TaskSearchComponent
+    TaskSearchComponent,
+    DepartmentSearchComponent
   ],
   imports: [
     BrowserModule,
