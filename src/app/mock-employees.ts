@@ -11,5 +11,5 @@ export const EMPLOYEES: Employee[] = [
   new Employee(16, 'Zane Fraser', '+12025550101', '12/06/97', DEPARTMENTS[6]),
   new Employee(17, 'Macey Grainger', '+12025550101', '12/06/97', DEPARTMENTS[7]),
   new Employee(18, 'LexiMai Bradshaw', '+12025550101', '12/06/97', DEPARTMENTS[7]),
-  new Employee(19, 'Sonya Andersen', '+12025550101', '12/06/97', DEPARTMENTS[9])
+  new Employee(19, 'Sonya Andersen', '+12025550101', '12/06/97', DEPARTMENTS[8])
 ];

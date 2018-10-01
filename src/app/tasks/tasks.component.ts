@@ -62,7 +62,7 @@ export class TasksComponent implements OnInit {
   }
 
   getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments) 
+    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments["records"]) 
   }
 
   constructor(
