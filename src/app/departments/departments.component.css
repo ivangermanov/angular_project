@@ -1,4 +1,7 @@
 /* HeroesComponent's private CSS styles */
+* {
+  box-sizing: unset;
+}
 .selected {
     background-color: #CFD8DC !important;
     color: white;
@@ -22,14 +25,12 @@
     padding:.3em 0 ;
   }
 
-  .buttonAddDepartments{
-    margin-left: 3%;
-  }
+  
   .buttondeleteDepartments{
+    
     float: right;
     background-color: gray !important;
     color: white;
-    margin-top: 2px;
     margin-right: 5px;
    
   }

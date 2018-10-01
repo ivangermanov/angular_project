@@ -1,6 +1,30 @@
-<div *ngIf="department">
-  <h2>{{department.name}} Details</h2> 
-  <div><span>id: </span>{{department.id}}</div>
+<div class="container" *ngIf="department">
+  <div class="row p-3">
+    <div class="col"></div>
+    <div class="col card" style="width: 18rem;">
+        <button (click)="goBack()">Go back!</button>
+        <div class="card-body">
+            <h5 class="card-title"><input [(ngModel)]="department.name" placeholder="name"></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: {{department.id}}</li>
+            <li class="list-group-item">Role: {{department.role}}</li>
+            <li class="list-group-item">Employees:
+                <span *ngFor="let employee of employees; let last = last">
+                    <span *ngIf="last; else notLast">{{employee.name}}</span>
+                    <ng-template #notLast>
+                      {{employee.name}},
+                    </ng-template>
+                  </span>
+            </li>
+        </ul>
+    </div>
+
+
+  <div class="col"></div>
+ </div>
+  
+  <!--<div><span>id: </span>{{department.id}}</div>
   <div>
     <label>name: 
       <input [(ngModel)]="department.name" placeholder="name">
@@ -19,6 +43,5 @@
         </span>
       </label>
     </div>
-  </div>
-  
-</div>
+  </div>-->
+ 
