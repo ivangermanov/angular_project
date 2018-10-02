@@ -68,12 +68,10 @@ class Employee{
     function readOne(){
         // query to read single record
         $query = "SELECT
-                  t.id, t.department_id, t.name_employee, t.reason, et.employee_id,t.due_date
+                  id, department_id, name_employee, date_of_hire, telephone
                   FROM
-                  " . $this->table_name . " t
-                  JOIN employeeemployee et
-                  ON t.id = et.employee_id
-                  WHERE t.id = ?";
+                  " . $this->table_name . "
+                  WHERE id = ?";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -97,47 +95,20 @@ class Employee{
                 $employee_item=array(
                     "id" => (int)$id,
                     "department_id" => (int)$department_id,
-                    "employee_id" => (int)$employee_id,
                     "name_employee" => $name_employee,
-                    "reason" => $reason,
-                    "due_date" => $due_date
+                    "doh" => $date_of_hire,
+                    "telephone" => $telephone
                 );
                 
                 array_push($employees_arr["records"], $employee_item);
             }
 
-            $json_employees_arr = array();
-            $json_employees_arr["records"] = array();
-            $next_index = 0;
-            $finished = FALSE;
-
-            for ($i=0; TRUE; $i++) { 
-                array_push($json_employees_arr["records"], $employees_arr["records"][$next_index]);
-                settype($json_employees_arr["records"][$i]['employee_id'], 'array');
-                $next_index = $next_index + 1;
-                if ($next_index >= sizeof($employees_arr["records"])) {
-                    break;
-                }
-                while ($json_employees_arr["records"][$i]['id'] == $employees_arr["records"][$next_index]['id']) {
-                    array_push($json_employees_arr["records"][$i]['employee_id'], $employees_arr["records"][$next_index]['employee_id']);
-                    $next_index = $next_index + 1;
-                    if ($next_index >= sizeof($employees_arr["records"])) {
-                        $finished = TRUE;
-                        break;
-                    }
-                }
-                if ($finished) {
-                    break;
-                }
-            }
-
             // set values to object properties
-            $this->id = $json_employees_arr["records"][0]['id'];
-            $this->department_id = $json_employees_arr["records"][0]['department_id'];
-            $this->name_employee = $json_employees_arr["records"][0]['name_employee'];
-            $this->reason = $json_employees_arr["records"][0]['reason'];
-            $this->employee_id = $json_employees_arr["records"][0]['employee_id'];
-            $this->due_date = $json_employees_arr["records"][0]['due_date'];
+            $this->id = $employees_arr["records"][0]['id'];
+            $this->department_id = $employees_arr["records"][0]['department_id'];
+            $this->name_employee = $employees_arr["records"][0]['name_employee'];
+            $this->date_of_hire = $employees_arr["records"][0]['doh'];
+            $this->telephone = $employees_arr["records"][0]['telephone'];
             
         } else {
                 echo json_encode(array("message" => "No employees found."));
@@ -146,15 +117,14 @@ class Employee{
 
     // update the product
     function update(){
-        $this->conn->beginTransaction();
         // update query
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
                     department_id = :department_id,
                     name_employee = :name_employee,
-                    reason = :reason,
-                    due_date = :due_date
+                    date_of_hire = :date_of_hire,
+                    telephone = :telephone
                 WHERE
                     id = :id";
     
@@ -164,62 +134,19 @@ class Employee{
         // sanitize update in employee
         $this->department_id=htmlspecialchars(strip_tags($this->department_id));
         $this->name_employee=htmlspecialchars(strip_tags($this->name_employee));
-        $this->reason=htmlspecialchars(strip_tags($this->reason));
-        $this->due_date=htmlspecialchars(strip_tags($this->due_date));
-        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->date_of_hire=htmlspecialchars(strip_tags($this->date_of_hire));
+        $this->telephone=htmlspecialchars(strip_tags($this->telephone));
     
         // bind new values
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':department_id', $this->department_id);
         $stmt->bindParam(':name_employee', $this->name_employee);
-        $stmt->bindParam(':reason', $this->reason);
-        $stmt->bindParam(':due_date', $this->due_date);
-        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':date_of_hire', $this->date_of_hire);
+        $stmt->bindParam(':telephone', $this->telephone);
     
         // execute the query
-        if(!$stmt->execute()){
-            $this->conn->rollBack();
-            return FALSE;
-        }
-
-        // sanitize deletion in employeeemployee
-        $this->id=htmlspecialchars(strip_tags($this->id));
-
-        $query = "DELETE FROM employeeemployee WHERE employee_id=:id";
-
-        $stmt = $this->conn->prepare($query);
-        
-        $stmt->bindParam(':id', $this->id);
-
-        if(!$stmt->execute()){
-            $this->conn->rollBack();
-            return FALSE;
-        }
-
-        // sanitize insertion into employeeemployee
-        $this->id=htmlspecialchars(strip_tags($this->id));
-        $this->employee_id=$this->employee_id;
-        
-        // query to insert record into employee_employee
-        $query = "INSERT INTO employeeemployee (employee_id, employee_id) VALUES";
-        for ($i=0; $i < sizeof($this->employee_id); $i++) { 
-            if ($i >= sizeof($this->employee_id) - 1) {
-                $query .= "(?,{$this->id});";
-            } else {
-                $query .= "(?,{$this->id}),";
-            }
-        }
-
-        // prepare query
-        $stmt = $this->conn->prepare($query);
-        
-        
-        // execute query
-        if($stmt->execute($this->employee_id)){
-            $this->conn->commit();
+        if($stmt->execute()){
             return TRUE;
-        } else {
-            $this->conn->rollBack();
-            return FALSE;
         }
     }
 
@@ -251,14 +178,10 @@ class Employee{
     function search($keyword){
  
         // select all query
-        $query = "SELECT t.id, t.department_id, et.employee_id, t.name_employee, t.reason, t.due_date
-                  FROM " . $this->table_name . " t
-                  JOIN employeeemployee et
-                  ON t.id = et.employee_id
-                  JOIN employee e
-                  ON et.employee_id = e.id
+        $query = "SELECT id, department_id, name_employee, date_of_hire, telephone
+                  FROM " . $this->table_name . "
                   WHERE name_employee LIKE ?
-                  ORDER BY t.id";
+                  ORDER BY id";
     
         // prepare query statement
         $stmt = $this->conn->prepare($query);

@@ -6,38 +6,35 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
  
-// get database connection
-include_once '../database.php';
  
-// instantiate employee object
+// include database and object file
+include_once '../database.php';
 include_once 'employee.php';
  
+// get database connection
 $database = new Database();
 $db = $database->getConnection();
  
+// prepare employee object
 $employee = new Employee($db);
  
-// get posted data
+// get employee id
 $data = json_decode(file_get_contents("php://input"));
-
-// set employee property values
-$employee->id = $data->id;
-$employee->department_id = $data->department_id;
-$employee->name_employee = $data->name_employee;
-$employee->date_of_hire = $data->date_of_hire;
-$employee->telephone = $data->telephone;
  
-// create the employee
-if($employee->create()){
+// set employee id to be deleted
+$employee->id = $data->id;
+ 
+// delete the employee
+if($employee->delete()){
     echo '{';
-        echo '"message": "employee was created."';
+        echo '"message": "employee was deleted."';
     echo '}';
 }
  
-// if unable to create the employee, tell the user
+// if unable to delete the employee
 else{
     echo '{';
-        echo '"message": "Unable to create employee."';
+        echo '"message": "Unable to delete object."';
     echo '}';
 }
 ?>

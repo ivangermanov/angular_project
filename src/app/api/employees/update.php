@@ -6,38 +6,39 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
  
-// get database connection
+// include database and object files
 include_once '../database.php';
- 
-// instantiate employee object
 include_once 'employee.php';
  
+// get database connection
 $database = new Database();
 $db = $database->getConnection();
  
+// prepare employee object
 $employee = new Employee($db);
  
-// get posted data
+// get id of employee to be edited
 $data = json_decode(file_get_contents("php://input"));
+// set ID property of employee to be edited
+$employee->id = $data->id;
 
 // set employee property values
-$employee->id = $data->id;
 $employee->department_id = $data->department_id;
 $employee->name_employee = $data->name_employee;
 $employee->date_of_hire = $data->date_of_hire;
 $employee->telephone = $data->telephone;
- 
-// create the employee
-if($employee->create()){
+
+// update the employee
+if($employee->update()){
     echo '{';
-        echo '"message": "employee was created."';
+        echo '"message": "employee was updated."';
     echo '}';
 }
  
-// if unable to create the employee, tell the user
+// if unable to update the employee, tell the user
 else{
     echo '{';
-        echo '"message": "Unable to create employee."';
+        echo '"message": "Unable to update employee."';
     echo '}';
 }
 ?>
