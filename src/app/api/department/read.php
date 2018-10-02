@@ -36,7 +36,7 @@ if($num>0){
         extract($row);
  
         $department_item=array(
-            "id" => $id,
+            "id" => (int)$id,
             "name" => $name_department,
             "role" => $role
             

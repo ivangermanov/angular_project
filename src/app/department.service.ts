@@ -40,11 +40,11 @@ export class DepartmentService {
     let allEmployees = this.employeeService.getEmployees();
     let employees = Array<Employee>();
     allEmployees.forEach(employee => {
-      if (employee.department === department) {
+      if (employee.department.id === department.id) {
         employees.push(employee);
       }
     });
-
+    console.log(employees);
     return employees;
   }
 
