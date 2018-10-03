@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -10,7 +12,10 @@ import { DepartmentDetailComponent } from './departments-detail/departments-deta
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TaskSearchComponent } from './task-search/task-search.component';
+import { DepartmentSearchComponent } from './department-search/department-search.component';
+import { EmployeesSearchComponent } from './employee-search/employee-search.component';
+
 
 @NgModule({
   declarations: [
@@ -21,11 +26,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     TaskDetailComponent,
     DepartmentDetailComponent,
     DashboardComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    TaskSearchComponent,
+    DepartmentSearchComponent,
+    EmployeesSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     AppRoutingModule,
     NgbModule
   ],

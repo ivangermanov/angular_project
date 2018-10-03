@@ -6,7 +6,7 @@ export class Task {
         public id: number,
         public name: string,
         public reason: string,
-        public minutes: number,
+        public dueDate: string,
         public employees: Employee[],
         public department: Department
       ) { }

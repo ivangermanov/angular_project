@@ -47,7 +47,7 @@ public model: any;
   }
 
   getDepartments(): void {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments) 
   }
 
   delete(employee: Employee): void {

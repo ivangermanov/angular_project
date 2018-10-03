@@ -1,17 +1,16 @@
-
 <div id="search-component input-group input-group-sm justify-content-center align-items-center">
   <div class="container align-items-center">
     <div class="row">
       <div class="col text-center">
 
-        <h4>Employee Search</h4>
-
+        <h4>Department Search</h4>
+ 
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-
+ 
   <ul style="position: relative; left: 36.72%;" class="search-result">
-    <li *ngFor="let employee of employees$ | async" >
-      <a routerLink="../detail/employees/{{employee.id}}">
-        {{employee.name}}
+    <li *ngFor="let department of departments$ | async" >
+      <a routerLink="../detail/departments/{{department.id}}">
+        {{department.name}}
       </a>
     </li>
   </ul>

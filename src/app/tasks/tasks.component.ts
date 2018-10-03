@@ -7,13 +7,17 @@ import { TaskService } from '../task.service';
 import { DepartmentService } from '../department.service';
 import { EmployeeService } from '../employee.service';
 
+import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css']
+  styleUrls: ['./tasks.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class TasksComponent implements OnInit {
 
+  date: { year: number, month: number, day: number };
   selectedEmployees: Employee[];
   selectedDepartment: Department;
   tasks: Task[];
@@ -30,7 +34,7 @@ export class TasksComponent implements OnInit {
     this.getEmployees();
   }
 
-  add(name: string, reason: string, minutes: number, employees: Employee[], department: Department): void {
+  add(name: string, reason: string, dueDate: string, employees: Employee[], department: Department): void {
     name = name.trim();
     if (!name || !employees || !department) { return; }
     let id;
@@ -39,7 +43,7 @@ export class TasksComponent implements OnInit {
     } else {
       id = 1;
     }
-    let newTask = new Task(id, name, reason, minutes, employees, department);
+    let newTask = new Task(id, name, reason, dueDate, employees, department);
     this.taskService.addTask(newTask).subscribe(() => { this.getTasks(); });
   }
 
@@ -48,7 +52,9 @@ export class TasksComponent implements OnInit {
   }
 
   getTasks(): void {
-    this.tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = this.taskService.decodeTasks(tasks);
+    })
   }
 
   getEmployees(): void {
@@ -56,13 +62,16 @@ export class TasksComponent implements OnInit {
   }
 
   getDepartments(): void {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments["records"]) 
   }
 
   constructor(
     private taskService: TaskService,
-    private employeeService: EmployeeService,
-    private departmentService: DepartmentService) {
+    private departmentService: DepartmentService,
+    config: NgbDatepickerConfig
+  ) {
+    let date = new Date();
+    config.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
   }
 
   ngOnInit() {

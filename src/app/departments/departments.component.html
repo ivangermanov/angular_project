@@ -1,23 +1,25 @@
-<div class="addDepartmentInfo">
-  Department name: <input #depName>
-  Department role: <input #depRole>
-  <button class="buttonAddDepartments" type="button" (click)="add(depName.value, depRole.value); depName.value=''; depRole.value=''">Add</button>
+<h2 class="text-center"> Departments</h2>
+<app-department-search></app-department-search>
+<div class="addDepartmentContainer input-group input-group-sm justify-content-center align-items-center">
+  <label class='addDepartmentItem center-block'> Department name: 
+      <input #depName/>
+  </label>
+  <label class='addDepartmentItem'>Department role:
+      <input #depRole>
+  </label>
+  <button class="btn btn-primary" (click)="add(depName.value, depRole.value); depName.value=''; depRole.value=''">Add</button>
 </div>
 
 
-<h2>My Departments</h2>
+
 
 
 <div class="grid-container">
-
-
   <li class="departments" *ngFor="let department of departments" (click)="onSelect(department)">
       <a routerLink="/detail/departments/{{department.id}}">
         <span class="grid-item"> {{department.id}} </span> {{department.name}}
       </a>
-    <button class="buttondeleteDepartments" type="button" (click)="delete(department)">X</button>
-
+    <button class="deleteDepartments" title="delete task" (click)="delete(department)">x</button>
   </li>
-
-
 </div>
+
