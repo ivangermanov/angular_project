@@ -21,7 +21,6 @@ export class DepartmentService {
     private _http: Http) { }
 
   getDepartment(id: number): Observable<Department> {
-
     return this._http
       .get(`${this.departmentsUrl}/read_one.php?id=` + id)
       .pipe(map((res: Response) => res.json()));
@@ -57,15 +56,13 @@ export class DepartmentService {
   }
 
   getEmployees(department: Department): Employee[] {
-    let allEmployees = this.employeeService.getEmployees();
     let employees = Array<Employee>();
-    console.log(department);
-    console.log(allEmployees);
-    allEmployees.forEach(employee => {
-      console.log(employee);
-      if (employee.department.id === department.id) {
-        employees.push(employee);
-      }
+    this.employeeService.getEmployees().subscribe((employees) => {
+      employees.forEach(employee => {
+        if (employee.department.id === department.id) {
+          employees.push(employee);
+        }
+      });
     });
 
     return employees;
