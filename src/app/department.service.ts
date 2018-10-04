@@ -20,10 +20,18 @@ export class DepartmentService {
     private employeeService: EmployeeService,
     private _http: Http) { }
 
-  getDepartment(id: number): Observable<Department> {
+ /* getDepartment(id: number): Observable<Department> {
     return of(DEPARTMENTS.find(department => department.id === id));
-  }
+  }*/
 
+  getDepartment(id: number): Observable<Department> {
+   
+    return this._http
+      .get(`${this.departmentsUrl}/read_one.php?id=` + id)
+      .pipe(map((res: Response) => res.json()));
+   
+  }
+ 
   getDepartments():Observable<Department[]> {
     //return DEPARTMENTS;
     return this._http 
@@ -31,20 +39,41 @@ export class DepartmentService {
       .pipe(map((res:Response) => res.json()));
   }
 
-  add(newdep: Department): Observable<Department> {
-    DEPARTMENTS.push(newdep);
-    return of(newdep);
+   
+
+  //CREATE 
+    add(department: Department): Observable<Department> {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let jsonTask = this.jsonifyDepartment(department);
+
+    return this._http.post(
+      `${this.departmentsUrl}/create.php`,
+      jsonTask,
+      options
+    ).pipe(map((res: Response) => {
+      if (res.ok) {
+        return of(department);
+      } else {
+        return res.json();
+      }
+    }));
   }
 
   getEmployees(department: Department): Employee[] {
     let allEmployees = this.employeeService.getEmployees();
     let employees = Array<Employee>();
+    console.log(department);
+    console.log(allEmployees);
     allEmployees.forEach(employee => {
+      console.log(employee);
       if (employee.department.id === department.id) {
         employees.push(employee);
       }
     });
-    console.log(employees);
+    
     return employees;
   }
 
@@ -53,6 +82,8 @@ export class DepartmentService {
     return of(dep);
   }
 
+
+  //SEARCH department
   searchDepartments(term: string): Observable<Department[]> {
     if(!term.trim()) {
       return of([]);
@@ -60,5 +91,15 @@ export class DepartmentService {
     return this._http 
       .get(`${this.departmentsUrl}/search.php?s=` + term)
       .pipe(map((res:Response) => res.json()));
+  }
+
+  //jsonify 
+  jsonifyDepartment(department: Department): object {
+   
+    let jsonTask = {
+      "id": department.id, "name_department": department.name, "role": department.role
+    };
+
+    return jsonTask;
   }
 }
