@@ -3,10 +3,6 @@ import { Employee } from './employee';
 import { EMPLOYEES } from './mock-employees';
 import { Observable, of } from 'rxjs';
 import { DepartmentService} from './department.service';
-
-
-import { EmployeeService } from './employee.service';
-
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map } from 'rxjs/operators';
 
@@ -30,19 +26,46 @@ export class EmployeeService {
     EMPLOYEES.push(newdep);
     return of(newdep);
   }
-//changed for the web app
 
   addEmployee(employee: Employee): Observable<Employee> {
-    EMPLOYEES.push(employee);
-    this.employees$ = of(EMPLOYEES);
-    return of(employee);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let jsonEmployee = this.jsonifyEmployee(employee);
+
+    return this._http.post(
+      `${this.employeesUrl}/create.php`,
+      jsonEmployee,
+      options
+    ).pipe(map((res: Response) => {
+      if (res.ok) {
+        return of(employee);
+      } else {
+        return res.json();
+      }
+    }));
   }
 
-  getEmployee(id: number): Observable<Employee> {
-    return of(EMPLOYEES.find(employee => employee.id === id));
-  }
 
 
+//changed for the web app
+
+//  addEmployee(employee: Employee): Observable<Employee> {
+//    EMPLOYEES.push(employee);
+//    this.employees$ = of(EMPLOYEES);
+//    return of(employee);
+//  }
+
+  //getEmployee(id: number): Observable<Employee> {
+    //return of(EMPLOYEES.find(employee => employee.id === id));
+  //}
+
+
+    getEmployee(id: number): Observable<Employee> {
+      return this._http
+        .get(`${this.employeesUrl}/read_one.php?id=` + id)
+        .pipe(map((res: Response) => res.json()));
+    }
 
   searchEmployees(term: string): Observable<Employee[]> {
     if(!term.trim()) {
@@ -54,14 +77,56 @@ export class EmployeeService {
   }
 
 
+  //deleteEmployee(employee: Employee): Observable<Employee> {
+    //EMPLOYEES.splice(EMPLOYEES.indexOf(employee), 1);
+    //this.employees$ = of(EMPLOYEES);
+    //return of(employee);
+  //}
+
   deleteEmployee(employee: Employee): Observable<Employee> {
-    EMPLOYEES.splice(EMPLOYEES.indexOf(employee), 1);
-    this.employees$ = of(EMPLOYEES);
-    return of(employee);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http.post(
+      `${this.employeesUrl}/delete.php`,
+      { id: employee.id },
+      options
+    ).pipe(map((res: Response) => res.json()));
+  }
+
+  updateEmployee(employee: Employee): Observable<Employee> {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let jsonEmployee = this.jsonifyEmployee(employee);
+
+    return this._http.post(
+      `${this.employeesUrl}/update.php`,
+      jsonEmployee,
+      options
+    ).pipe(map((res: Response) => {
+      if (res.ok) {
+        return of(employee);
+      } else {
+        return res.json();
+      }
+    }));
+  }
+
+  jsonifyEmployee(employee: Employee): object {
+  
+    let jsonEmployee = {
+      "id": employee.id, "telephone": employee.telephone, "name_employee": employee.name,
+      "date_of_hire": employee.doh, "department_id": employee.department
+    };
+
+    return jsonEmployee;
   }
 
   constructor(
     private employeeService: EmployeeService,
+    private departmentService: DepartmentService,
     private _http: Http
   ) { }
 }

@@ -14,7 +14,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { TaskSearchComponent } from './task-search/task-search.component';
 import { DepartmentSearchComponent } from './department-search/department-search.component';
-import { EmployeesSearchComponent } from './employee-search/employee-search.component';
+import { EmployeeSearchComponent } from './employee-search/employee-search.component';
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { EmployeesSearchComponent } from './employee-search/employee-search.comp
     EmployeeDetailComponent,
     TaskSearchComponent,
     DepartmentSearchComponent,
-    EmployeesSearchComponent
+    EmployeeSearchComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
 import { Department } from '../department';
+import { Observable, of } from 'rxjs';
 
 import { EmployeeService } from '../employee.service';
 import { DepartmentService } from '../department.service';
@@ -47,7 +48,7 @@ public model: any;
   }
 
   getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments) 
+    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments)
   }
 
   delete(employee: Employee): void {

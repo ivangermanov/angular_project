@@ -16,11 +16,12 @@ export class DepartmentsComponent implements OnInit {
   departments: Department[];
   employees: Employee[];
 
-  constructor(private departmentService: DepartmentService, private employeeService: EmployeeService) { }
+  constructor(private departmentService: DepartmentService
+    , private employeeService: EmployeeService) { }
 
   ngOnInit() {
     this.getDepartments();
-    this.getEmployees();
+    //this.getEmployees();
   }
 
   selectedDepartment: Department;
@@ -29,9 +30,9 @@ export class DepartmentsComponent implements OnInit {
     this.departmentService.getDepartments().subscribe((departments) => this.departments=departments["records"]);
   }
 
-  getEmployees(): void {
-    this.employees = this.employeeService.getEmployees();
-  }
+  //getEmployees(): void {
+    //this.employees = this.employeeService.getEmployees();
+  //}
 
   onSelect(department: Department): void {
     this.selectedDepartment = department;
