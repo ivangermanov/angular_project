@@ -44,11 +44,19 @@ public model: any;
   }
 
   getEmployees(): void {
-    this.employees = this.employeeService.getEmployees();
+  //  this.employees = this.employeeService.getEmployees();
+//  .subscribe(employees => {
+          //    this.employees = employees;
+        //      this.filteredProducts = this.products;
+        //  }, error => this.errorMessage = <any>error);
+
+    this.employeeService.getEmployees().subscribe(employees =>
+      this.employees = employees["records"]);
+
   }
 
   getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments)
+    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments);
   }
 
   delete(employee: Employee): void {

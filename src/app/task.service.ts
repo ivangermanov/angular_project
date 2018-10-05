@@ -124,7 +124,7 @@ export class TaskService {
           const dueDate = tasks["records"][i]["due_date"];
           decoded_tasks.push(new Task(id, name_task, reason, dueDate, employees, departmentObj));
         }
-    
+
         return decoded_tasks;
       }
     }
@@ -132,6 +132,25 @@ export class TaskService {
       return [];
     }
   }
+
+
+  getEmployees(department: Department): Employee[] {
+   let allEmployees = this.employeeService.getEmployees();
+   let allTasks = this.getTasks();
+    let employees = Array<Employee>();
+     allEmployees.forEach(employee =>{
+       allTasks.forEach(task =>{
+     if (employee.department.id === task.department.id) {
+
+         employees.push(employee);
+
+       }
+     });
+    });
+    console.log(employees);
+     return employees;
+   }
+
 
   jsonifyTask(task: Task): object {
     let employee_ids = new Array<number>();

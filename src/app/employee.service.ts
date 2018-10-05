@@ -115,7 +115,7 @@ export class EmployeeService {
   }
 
   jsonifyEmployee(employee: Employee): object {
-  
+
     let jsonEmployee = {
       "id": employee.id, "telephone": employee.telephone, "name_employee": employee.name,
       "date_of_hire": employee.doh, "department_id": employee.department
