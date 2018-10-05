@@ -44,14 +44,14 @@ export class EmployeesComponent implements OnInit {
     this.selectedDepartment = department;
   }
 
-  getEmployees(): void {
-<<<<<<< HEAD
+
+
   //  this.employees = this.employeeService.getEmployees();
 //  .subscribe(employees => {
           //    this.employees = employees;
         //      this.filteredProducts = this.products;
         //  }, error => this.errorMessage = <any>error);
-
+  getEmployees(): void {
     this.employeeService.getEmployees().subscribe(employees =>
       this.employees = employees["records"]);
 
@@ -59,7 +59,6 @@ export class EmployeesComponent implements OnInit {
 
   getDepartments(): void {
     this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments);
-=======
     this.employeeService.getEmployees().subscribe((employees) => {
       let tempEmployees = Array<Employee>();
       employees['records'].forEach(employee => {
@@ -72,7 +71,6 @@ export class EmployeesComponent implements OnInit {
 
   getDepartments(): void {
     this.departmentService.getDepartments().subscribe((departments) => this.departments = departments)
->>>>>>> 120dd6520b79043be2dec6718008bdedf163cac0
   }
 
   delete(employee: Employee): void {

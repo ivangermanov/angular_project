@@ -17,11 +17,7 @@ export class DepartmentService {
 
   private departmentsUrl = "http://localhost/api/department";
   constructor(
-<<<<<<< HEAD
-  private employeeService: EmployeeService,
-=======
     private employeeService: EmployeeService,
->>>>>>> 120dd6520b79043be2dec6718008bdedf163cac0
     private _http: Http) { }
 
   getDepartment(id: number): Observable<Department> {
@@ -38,7 +34,7 @@ export class DepartmentService {
       .pipe(map((res: Response) => res.json()));
   }
 
-  //CREATE 
+  //CREATE
   add(department: Department): Observable<Department> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -72,7 +68,6 @@ export class DepartmentService {
     return employees;
   }
 
-<<<<<<< HEAD
  getEmployees(department: Department): Employee[] {
    let allEmployees = this.employeeService.getEmployees();
   let employees = Array<Employee>();
@@ -92,8 +87,6 @@ export class DepartmentService {
   //  return of(DEPARTMENTS.find(department => department.id === id));
   //}
 //
-=======
->>>>>>> 120dd6520b79043be2dec6718008bdedf163cac0
   delete(dep: Department): Observable<Department> {
     DEPARTMENTS.splice(DEPARTMENTS.indexOf(dep), 1);
     return of(dep);
@@ -110,7 +103,7 @@ export class DepartmentService {
       .pipe(map((res: Response) => res.json()));
   }
 
-  //jsonify 
+  //jsonify
   jsonifyDepartment(department: Department): object {
 
     let jsonTask = {

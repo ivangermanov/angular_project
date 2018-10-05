@@ -12,3 +12,31 @@
   </label>
 </div>
 </div>
+
+<div class="container" *ngIf="employee">
+  <div class="row p-3">
+    <div class="col"></div>
+    <div class="col card" style="width: 18rem;">
+        <button (click)="goBack()">Go back!</button>
+        <div class="card-body">
+            <h5 class="card-title"><input [(ngModel)]="employee.name" placeholder="name"></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: {{employee.id}}</li>
+            <li class="list-group-item">Date of Hire: {{employee.doh}}</li>
+            <li class="list-group-item">Telephone: {{employee.telephone}}</li>
+            <li class="list-group-item">Telephone: {{employee.telephone}}</li>
+            <li class="list-group-item">Department: {{employee.department.name}}
+            <!--    <span *ngFor="let department of departments; let last = last">
+                    <span *ngIf="last; else notLast">{{employee.department.name}}</span>
+                    <ng-template #notLast>
+                      {{employee.name}},
+                    </ng-template>
+                  </span>-->
+            </li>
+        </ul>
+    </div>
+
+
+  <div class="col"></div>
+ </div>

@@ -1,4 +1,7 @@
 /* HeroDetailComponent's private CSS styles */
+* {
+  box-sizing: unset;
+}
 label {
   display: inline-block;
   width: 3em;

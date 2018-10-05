@@ -35,11 +35,14 @@
     </select>
   </label>
 
-  <button (click)="add(employeeName.value,  employeeTel.value, employeeDOH.value, selectedDepartment);
+
+  <button class="btn btn-primary" (click)="add(employeeName.value,  employeeTel.value, employeeDOH.value, selectedDepartment);
                  employeeName.value='';  employeeTel.value=''; employeeDOH.value='';">
-    Add!
-  </button>
+                 Add
+ </button>
 </div>
+
+
 
 <div class="listItems">
   <h2>My Employees</h2>
