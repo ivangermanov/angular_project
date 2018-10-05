@@ -5,7 +5,8 @@ import { Observable, of } from 'rxjs';
 
 import { EmployeeService } from '../employee.service';
 import { DepartmentService } from '../department.service';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-employees',
@@ -14,7 +15,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class EmployeesComponent implements OnInit {
 
-public model: any;
+  public model: any;
 
   employees: Employee[];
   departments: Department[];
@@ -44,6 +45,7 @@ public model: any;
   }
 
   getEmployees(): void {
+<<<<<<< HEAD
   //  this.employees = this.employeeService.getEmployees();
 //  .subscribe(employees => {
           //    this.employees = employees;
@@ -57,6 +59,20 @@ public model: any;
 
   getDepartments(): void {
     this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments);
+=======
+    this.employeeService.getEmployees().subscribe((employees) => {
+      let tempEmployees = Array<Employee>();
+      employees['records'].forEach(employee => {
+        tempEmployees.push(new Employee(employee.id, employee.name, employee.telephone,
+           employee.doh, this.departmentService.getDepartment(employee.department_id)));
+      });
+      console.log(this.employees);
+    });
+  }
+
+  getDepartments(): void {
+    this.departmentService.getDepartments().subscribe((departments) => this.departments = departments)
+>>>>>>> 120dd6520b79043be2dec6718008bdedf163cac0
   }
 
   delete(employee: Employee): void {

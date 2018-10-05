@@ -17,25 +17,62 @@ export class DepartmentService {
 
   private departmentsUrl = "http://localhost/api/department";
   constructor(
+<<<<<<< HEAD
   private employeeService: EmployeeService,
+=======
+    private employeeService: EmployeeService,
+>>>>>>> 120dd6520b79043be2dec6718008bdedf163cac0
     private _http: Http) { }
 
   getDepartment(id: number): Observable<Department> {
-    return of(DEPARTMENTS.find(department => department.id === id));
+    return this._http
+      .get(`${this.departmentsUrl}/read_one.php?id=` + id)
+      .pipe(map((res: Response) => res.json()));
+
   }
 
-  getDepartments():Observable<Department[]> {
+  getDepartments(): Observable<Department[]> {
     //return DEPARTMENTS;
     return this._http
       .get(`${this.departmentsUrl}/read.php`)
-      .pipe(map((res:Response) => res.json()));
+      .pipe(map((res: Response) => res.json()));
   }
 
-  add(newdep: Department): Observable<Department> {
-    DEPARTMENTS.push(newdep);
-    return of(newdep);
+  //CREATE 
+  add(department: Department): Observable<Department> {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let jsonTask = this.jsonifyDepartment(department);
+
+    return this._http.post(
+      `${this.departmentsUrl}/create.php`,
+      jsonTask,
+      options
+    ).pipe(map((res: Response) => {
+      if (res.ok) {
+        return of(department);
+      } else {
+        return res.json();
+      }
+    }));
   }
 
+  getEmployees(department: Department): Employee[] {
+    let employees = Array<Employee>();
+    this.employeeService.getEmployees().subscribe((employees) => {
+      employees.forEach(employee => {
+        if (employee.department.id === department.id) {
+          employees.push(employee);
+        }
+      });
+    });
+
+    return employees;
+  }
+
+<<<<<<< HEAD
  getEmployees(department: Department): Employee[] {
    let allEmployees = this.employeeService.getEmployees();
   let employees = Array<Employee>();
@@ -55,17 +92,31 @@ export class DepartmentService {
   //  return of(DEPARTMENTS.find(department => department.id === id));
   //}
 //
+=======
+>>>>>>> 120dd6520b79043be2dec6718008bdedf163cac0
   delete(dep: Department): Observable<Department> {
     DEPARTMENTS.splice(DEPARTMENTS.indexOf(dep), 1);
     return of(dep);
   }
 
+
+  //SEARCH department
   searchDepartments(term: string): Observable<Department[]> {
-    if(!term.trim()) {
+    if (!term.trim()) {
       return of([]);
     }
     return this._http
       .get(`${this.departmentsUrl}/search.php?s=` + term)
-      .pipe(map((res:Response) => res.json()));
+      .pipe(map((res: Response) => res.json()));
+  }
+
+  //jsonify 
+  jsonifyDepartment(department: Department): object {
+
+    let jsonTask = {
+      "id": department.id, "name_department": department.name, "role": department.role
+    };
+
+    return jsonTask;
   }
 }
