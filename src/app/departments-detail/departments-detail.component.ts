@@ -24,19 +24,25 @@ export class DepartmentDetailComponent implements OnInit {
     private employeeService: EmployeeService,
     private location: Location) { }
 
-  ngOnInit() {
-    this.getDepartment();
-    this.getEmployees();
+  async ngOnInit() {
+    await this.getDepartment();
+    await this.getEmployees();
   }
 
-  getDepartment(): void {
+  async getDepartment(): Promise<Department> {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.departmentService.getDepartment(id)
-      .subscribe(department => this.department = department);
+    let department = await this.departmentService.getDepartment(id).toPromise();
+    const newDepartment = new Department(department["id"], department["name_department"], department["role"]);
+    return this.department = newDepartment;
   }
 
-  getEmployees(): void {
-    this.employeeService.getEmployeesOfDepartment(this.department).subscribe(employees => this.employees = employees);
+  async getEmployees(): Promise<Employee[]> {
+    return await this.employeeService.getEmployeesOfDepartment(this.department).toPromise()
+      .then(employees => this.employees = employees["records"]);
+  }
+
+  updateDepartment(): void {
+    this.departmentService.updateDepartment(this.department).subscribe(() => this.getDepartment());
   }
 
   goBack(): void {

@@ -34,7 +34,7 @@ export class EmployeeDetailComponent implements OnInit {
     return this.employee = newEmployee;
   }
 
-  updateTask(): void {
+  updateEmployee(): void {
     this.employeeService.updateEmployee(this.employee).subscribe(() => this.getEmployee());
   }
 

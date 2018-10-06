@@ -55,12 +55,17 @@ export class DepartmentService {
     }));
   }
 
-  delete(dep: Department): Observable<Department> {
-    DEPARTMENTS.splice(DEPARTMENTS.indexOf(dep), 1);
-    return of(dep);
-  }
+  delete(department: Department): Observable<Department> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
+    return this._http.post(
+      `${this.departmentsUrl}/delete.php`,
+      { id: department.id },
+      options
+    ).pipe(map((res: Response) => res.json()));
 
+ }
   //SEARCH department
   searchDepartments(term: string): Observable<Department[]> {
     if (!term.trim()) {
@@ -73,11 +78,32 @@ export class DepartmentService {
 
   //jsonify
   jsonifyDepartment(department: Department): object {
-
-    let jsonTask = {
+   
+    let jsonDepartment = {
       "id": department.id, "name_department": department.name, "role": department.role
     };
 
-    return jsonTask;
+    return jsonDepartment;
   }
+
+  //UPDATE 
+  updateDepartment(department: Department): Observable<Department> {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let jsonDepartment = this.jsonifyDepartment(department);
+    console.log(jsonDepartment);
+    return this._http.post(
+      `${this.departmentsUrl}/update.php`,
+      jsonDepartment,
+      options
+    ).pipe(map((res: Response) => {
+      if (res.ok) {
+        return of(department);
+      } else {
+        return res.json();
+      }
+    }));
+}
 }

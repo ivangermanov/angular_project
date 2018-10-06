@@ -4,7 +4,7 @@
     <div class="col card" style="width: 18rem;">
         <button (click)="goBack()">Go back!</button>
         <div class="card-body">
-            <h5 class="card-title"><input [(ngModel)]="department.name" placeholder="name"></h5>
+            <h5 class="card-title"><input  [(ngModel)]="department.name" placeholder="name"></h5>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: {{department.id}}</li>
@@ -18,30 +18,10 @@
                   </span>
             </li>
         </ul>
+        <button (click)="updateDepartment()">Update</button>
     </div>
-
-
   <div class="col"></div>
  </div>
   
-  <!--<div><span>id: </span>{{department.id}}</div>
-  <div>
-    <label>name: 
-      <input [(ngModel)]="department.name" placeholder="name">
-    </label>
-    <label>role:
-      <input [(ngModel)]="department.role" placeholder="role">
-    </label>
-    <div>
-      employees:
-      <label>
-        <span *ngFor="let employee of employees; let last = last">
-          <span *ngIf="last; else notLast">{{employee.name}}</span>
-          <ng-template #notLast>
-            {{employee.name}},
-          </ng-template>
-        </span>
-      </label>
-    </div>
-  </div>-->
+  
  
