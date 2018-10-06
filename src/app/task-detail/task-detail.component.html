@@ -11,14 +11,14 @@
         <li class="list-group-item">Reason: {{task.reason}}</li>
         <li class="list-group-item">Employees:
           <span *ngFor="let employee of task.employees; let last = last">
-            <span *ngIf="last; else notLast">{{employee.name}}</span>
+            <span *ngIf="last; else notLast">{{employee.name_employee}}</span>
             <ng-template #notLast>
-              {{employee.name}},
+              {{employee.name_employee}},
             </ng-template>
           </span>
         </li>
         <li class="list-group-item">Due Date: {{task.dueDate}}</li>
-        <li class="list-group-item">Department: {{task.department.name}}</li>
+        <li class="list-group-item">Department: {{task.department.name_department}}</li>
       </ul>
       <button (click)="updateTask()">Update!</button>
     </div>

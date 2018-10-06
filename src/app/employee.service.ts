@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Employee } from './employee';
+import { Department } from './department';
 import { EMPLOYEES } from './mock-employees';
 import { Observable, of } from 'rxjs';
 import { DepartmentService } from './department.service';
@@ -20,6 +21,12 @@ export class EmployeeService {
       .get(`${this.employeesUrl}/read.php`)
       .pipe(map((res: Response) => res.json()));
   }
+  
+  getEmployeesOfDepartment(department: Department): Observable<Employee[]> {
+    return this._http
+    .get(`${this.employeesUrl}/read_employee_department.php?s=` + department.id)
+    .pipe(map((res: Response) => res.json()));
+  }
 
   //changed for the web app
   add(newdep: Employee): Observable<Employee> {
@@ -27,12 +34,13 @@ export class EmployeeService {
     return of(newdep);
   }
 
+
   addEmployee(employee: Employee): Observable<Employee> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     let jsonEmployee = this.jsonifyEmployee(employee);
-
+    
     return this._http.post(
       `${this.employeesUrl}/create.php`,
       jsonEmployee,
@@ -45,21 +53,6 @@ export class EmployeeService {
       }
     }));
   }
-
-
-
-  //changed for the web app
-
-  //  addEmployee(employee: Employee): Observable<Employee> {
-  //    EMPLOYEES.push(employee);
-  //    this.employees$ = of(EMPLOYEES);
-  //    return of(employee);
-  //  }
-
-  //getEmployee(id: number): Observable<Employee> {
-  //return of(EMPLOYEES.find(employee => employee.id === id));
-  //}
-
 
   getEmployee(id: number): Observable<Employee> {
     return this._http
@@ -75,13 +68,6 @@ export class EmployeeService {
       .get(`${this.employeesUrl}/search.php?s=` + term)
       .pipe(map((res: Response) => res.json()));
   }
-
-
-  //deleteEmployee(employee: Employee): Observable<Employee> {
-  //EMPLOYEES.splice(EMPLOYEES.indexOf(employee), 1);
-  //this.employees$ = of(EMPLOYEES);
-  //return of(employee);
-  //}
 
   deleteEmployee(employee: Employee): Observable<Employee> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -118,7 +104,7 @@ export class EmployeeService {
 
     let jsonEmployee = {
       "id": employee.id, "telephone": employee.telephone, "name_employee": employee.name,
-      "date_of_hire": employee.doh, "department_id": employee.department
+      "date_of_hire": employee.doh, "department_id": employee.department.id
     };
 
     return jsonEmployee;

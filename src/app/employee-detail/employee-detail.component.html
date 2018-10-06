@@ -1,42 +1,19 @@
-<button (click)="goBack()">Go back</button>
-
-<div *ngIf="employee">
-<h2>{{employee.name | uppercase}} Details</h2>
-<div><span>id: </span>{{employee.id}}</div>
-<div><span>Date of Hire: </span>{{employee.doh}}</div>
-<div><span>Telephone: </span>{{employee.tel}}</div>
-<div><span>Department: </span>{{employee.department.name}}</div>
-<div>
-  <label>name:
-    <input [(ngModel)]="employee.name" placeholder="name"/>
-  </label>
-</div>
-</div>
-
 <div class="container" *ngIf="employee">
-  <div class="row p-3">
-    <div class="col"></div>
-    <div class="col card" style="width: 18rem;">
-        <button (click)="goBack()">Go back!</button>
-        <div class="card-body">
-            <h5 class="card-title"><input [(ngModel)]="employee.name" placeholder="name"></h5>
+    <div class="row p-3">
+        <div class="col"></div>
+        <div class="col card" style="width: 18rem;">
+            <button (click)="goBack()">Go back!</button>
+            <div class="card-body">
+                <h5 class="card-title"><input [(ngModel)]="employee.name" placeholder="name"></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: {{employee.id}}</li>
+                <li class="list-group-item">Date of Hire: {{employee.doh}}</li>
+                <li class="list-group-item">Telephone: {{employee.telephone}}</li>
+                <li class="list-group-item">Department: {{employee.department.name_department}}
+                </li>
+            </ul>
+            <button (click)="updateTask()">Update!</button>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: {{employee.id}}</li>
-            <li class="list-group-item">Date of Hire: {{employee.doh}}</li>
-            <li class="list-group-item">Telephone: {{employee.telephone}}</li>
-            <li class="list-group-item">Telephone: {{employee.telephone}}</li>
-            <li class="list-group-item">Department: {{employee.department.name}}
-            <!--    <span *ngFor="let department of departments; let last = last">
-                    <span *ngIf="last; else notLast">{{employee.department.name}}</span>
-                    <ng-template #notLast>
-                      {{employee.name}},
-                    </ng-template>
-                  </span>-->
-            </li>
-        </ul>
+        <div class="col"></div>
     </div>
-
-
-  <div class="col"></div>
- </div>

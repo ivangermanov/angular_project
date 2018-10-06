@@ -26,7 +26,6 @@ export class TasksComponent implements OnInit {
 
   selectEmployees(employees: Employee[]) {
     this.selectedEmployees = employees;
-    this.getEmployees()
   }
 
   selectDepartment(department: Department) {
@@ -58,16 +57,32 @@ export class TasksComponent implements OnInit {
   }
 
   getEmployees(): void {
-    this.employees = this.taskService.getEmployees(this.selectedDepartment);
+    this.employeeService.getEmployeesOfDepartment(this.selectedDepartment).subscribe(employees => {
+      if (employees.hasOwnProperty('records')) {
+        for (let i = 0; i < employees["records"].length; i++) {
+          this.departmentService.getDepartment(employees["records"][i]["department_id"]).subscribe(department => {
+            return employees["records"][i].department = department;
+          });
+          
+          employees["records"][i] = new Employee(employees["records"][i].id, employees["records"][i].name, employees["records"][i].telephone,
+          employees["records"][i].doh, employees["records"][i].department);
+        }
+        
+        this.employees = employees["records"]; 
+      } else {
+        this.employees = new Array<Employee>();
+      }
+    });
   }
 
   getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments["records"])
+    this.departmentService.getDepartments().subscribe((departments)=> this.departments = departments["records"])
   }
 
   constructor(
     private taskService: TaskService,
     private departmentService: DepartmentService,
+    private employeeService: EmployeeService,
     config: NgbDatepickerConfig
   ) {
     let date = new Date();

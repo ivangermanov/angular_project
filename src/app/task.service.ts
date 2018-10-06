@@ -92,15 +92,15 @@ export class TaskService {
     }));
   }
 
-  decodeTask(task: Task): Task {
+  async decodeTask(task: Task): Promise<Task> {
     const id = task["id"];
-    let departmentObj: Department;
-    this.departmentService.getDepartment(task["department_id"]).subscribe(department => departmentObj = department);
+    let departmentObj = await this.departmentService.getDepartment(task["department_id"]).toPromise();
 
     const employees = new Array<Employee>();
     for (let j = 0; j < task["employee_id"].length; j++) {
-      this.employeeService.getEmployee(task["employee_id"][j]).subscribe(employee => employees.push(employee));
+      employees.push(await this.employeeService.getEmployee(task["employee_id"][j]).toPromise());
     }
+
     const name_task = task["name_task"];
     const reason = task["reason"];
     const dueDate = task["due_date"];
@@ -108,49 +108,28 @@ export class TaskService {
   }
 
   decodeTasks(tasks: Task[]): Task[] {
-    if (tasks instanceof Object) {
-      if (tasks["records"]) {
-        let decoded_tasks = new Array<Task>();
-        for (let i = 0; i < tasks["records"].length; i++) {
-          const id = tasks["records"][i]["id"];
-          let departmentObj: Department;
-          this.departmentService.getDepartment(tasks["department_id"]).subscribe(department => departmentObj = department);
-          const employees = new Array<Employee>();
-          for (let j = 0; j < tasks["records"][i]["employee_id"].length; j++) {
-            this.employeeService.getEmployee(tasks["records"][i]["employee_id"][j]).subscribe(employee => employees.push(employee));
-          }
-          const name_task = tasks["records"][i]["name_task"];
-          const reason = tasks["records"][i]["reason"];
-          const dueDate = tasks["records"][i]["due_date"];
-          decoded_tasks.push(new Task(id, name_task, reason, dueDate, employees, departmentObj));
+    if (tasks.hasOwnProperty("records")) {
+      let decoded_tasks = new Array<Task>();
+      for (let i = 0; i < tasks["records"].length; i++) {
+        const id = tasks["records"][i]["id"];
+        let departmentObj: Department;
+        this.departmentService.getDepartment(tasks["records"][i]["department_id"]).subscribe(department => departmentObj = department);
+        const employees = new Array<Employee>();
+        for (let j = 0; j < tasks["records"][i]["employee_id"].length; j++) {
+          this.employeeService.getEmployee(tasks["records"][i]["employee_id"][j]).subscribe(emps => employees.push(emps));
         }
-
-        return decoded_tasks;
+        
+        const name_task = tasks["records"][i]["name_task"];
+        const reason = tasks["records"][i]["reason"];
+        const dueDate = tasks["records"][i]["due_date"];
+        decoded_tasks.push(new Task(id, name_task, reason, dueDate, employees, departmentObj));
       }
-    }
-    else {
+
+      return decoded_tasks;
+    } else {
       return [];
     }
   }
-
-
-  getEmployees(department: Department): Employee[] {
-   let allEmployees = this.employeeService.getEmployees();
-   let allTasks = this.getTasks();
-    let employees = Array<Employee>();
-     allEmployees.forEach(employee =>{
-       allTasks.forEach(task =>{
-     if (employee.department.id === task.department.id) {
-
-         employees.push(employee);
-
-       }
-     });
-    });
-    console.log(employees);
-     return employees;
-   }
-
 
   jsonifyTask(task: Task): object {
     let employee_ids = new Array<number>();
@@ -161,7 +140,7 @@ export class TaskService {
       "id": task.id, "department_id": task.department.id, "name_task": task.name, "reason": task.reason,
       "due_date": task.dueDate, "employee_id": employee_ids
     };
-
+    
     return jsonTask;
   }
 

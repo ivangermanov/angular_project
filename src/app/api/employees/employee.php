@@ -198,4 +198,27 @@ class Employee{
     
         return $stmt;
     }
+
+    function read_employee_department($keyword){
+        
+        // select all query
+        $query = "SELECT id, department_id, name_employee, date_of_hire, telephone
+                  FROM " . $this->table_name . " 
+                  WHERE department_id = ?
+                  ORDER BY id";
+    
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+    
+        // sanitize
+        $keyword=htmlspecialchars(strip_tags($keyword));
+  
+        // bind
+        $stmt->bindParam(1, $keyword);
+
+        // execute query
+        $stmt->execute();
+        
+        return $stmt;
+    }
 }

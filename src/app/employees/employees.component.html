@@ -21,7 +21,7 @@
   </label>
 
   <label class='addEmployeeItem'>Employee DOH:
-    <input #employeeDOH />
+    <input #employeeDOH name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" placeholder="YYYY-mm-dd" (click)="d.toggle()" />
   </label>
   <label class='addEmployeeItem'>Employee telephone:
     <input #employeeTel />

@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { EmployeeService } from './employee.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { del } from 'selenium-webdriver/http';
 
 
 
@@ -24,7 +25,6 @@ export class DepartmentService {
     return this._http
       .get(`${this.departmentsUrl}/read_one.php?id=` + id)
       .pipe(map((res: Response) => res.json()));
-
   }
 
   getDepartments(): Observable<Department[]> {
@@ -55,38 +55,6 @@ export class DepartmentService {
     }));
   }
 
-  getEmployees(department: Department): Employee[] {
-    let employees = Array<Employee>();
-    this.employeeService.getEmployees().subscribe((employees) => {
-      employees.forEach(employee => {
-        if (employee.department.id === department.id) {
-          employees.push(employee);
-        }
-      });
-    });
-
-    return employees;
-  }
-
- getEmployees(department: Department): Employee[] {
-   let allEmployees = this.employeeService.getEmployees();
-  let employees = Array<Employee>();
-    allEmployees.forEach(employee =>{
-
-     if (employee.department.id === department.id) {
-
-        employees.push(employee);
-
-     }
-    });
-   console.log(employees);
-   return employees;
- }
-//added by vlad for displaying dep in emp detail
-//  getDepartment(id: number): Observable<Department> {
-  //  return of(DEPARTMENTS.find(department => department.id === id));
-  //}
-//
   delete(dep: Department): Observable<Department> {
     DEPARTMENTS.splice(DEPARTMENTS.indexOf(dep), 1);
     return of(dep);

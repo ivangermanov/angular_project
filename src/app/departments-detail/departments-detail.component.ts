@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Department } from '../department';
 import { Employee } from '../employee';
 import { DepartmentService } from '../department.service';
+import { EmployeeService } from '../employee.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -20,6 +21,7 @@ export class DepartmentDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private departmentService: DepartmentService,
+    private employeeService: EmployeeService,
     private location: Location) { }
 
   ngOnInit() {
@@ -29,13 +31,12 @@ export class DepartmentDetailComponent implements OnInit {
 
   getDepartment(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.departmentService.getDepartment(id);
-    // this.departmentService.getDepartment(id)
-    //   .subscribe(department => this.department = department);
+    this.departmentService.getDepartment(id)
+      .subscribe(department => this.department = department);
   }
 
   getEmployees(): void {
-    this.employees = this.departmentService.getEmployees(this.department);
+    this.employeeService.getEmployeesOfDepartment(this.department).subscribe(employees => this.employees = employees);
   }
 
   goBack(): void {

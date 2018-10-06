@@ -27,11 +27,11 @@ export class DepartmentsComponent implements OnInit {
   selectedDepartment: Department;
 
   getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments) => this.departments=departments["records"]);
+    this.departmentService.getDepartments().subscribe((departments) => this.departments = departments["records"]);
   }
 
   //getEmployees(): void {
-    //this.employees = this.employeeService.getEmployees();
+  //this.employees = this.employeeService.getEmployees();
   //}
 
   onSelect(department: Department): void {

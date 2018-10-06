@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
 import { Department } from '../department';
-import { Observable, of } from 'rxjs';
 
 import { EmployeeService } from '../employee.service';
 import { DepartmentService } from '../department.service';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { forEach } from '@angular/router/src/utils/collection';
+import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-employees',
@@ -15,7 +13,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class EmployeesComponent implements OnInit {
 
-  public model: any;
+  date: { year: number, month: number, day: number };
 
   employees: Employee[];
   departments: Department[];
@@ -44,33 +42,23 @@ export class EmployeesComponent implements OnInit {
     this.selectedDepartment = department;
   }
 
-
-
-  //  this.employees = this.employeeService.getEmployees();
-//  .subscribe(employees => {
-          //    this.employees = employees;
-        //      this.filteredProducts = this.products;
-        //  }, error => this.errorMessage = <any>error);
   getEmployees(): void {
-    this.employeeService.getEmployees().subscribe(employees =>
-      this.employees = employees["records"]);
+    this.employeeService.getEmployees().subscribe(employees => {
+      for (let i = 0; i < employees["records"].length; i++) {
+        this.departmentService.getDepartment(employees["records"][i]["department_id"]).subscribe(department => {
+          return employees["records"][i].department = department;
+        });
 
-  }
+        employees["records"][i] = new Employee(employees["records"][i].id, employees["records"][i].name, employees["records"][i].telephone,
+          employees["records"][i].doh, employees["records"][i].department);
+      }
 
-  getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments)=> this.departments =departments);
-    this.employeeService.getEmployees().subscribe((employees) => {
-      let tempEmployees = Array<Employee>();
-      employees['records'].forEach(employee => {
-        tempEmployees.push(new Employee(employee.id, employee.name, employee.telephone,
-           employee.doh, this.departmentService.getDepartment(employee.department_id)));
-      });
-      console.log(this.employees);
+      this.employees = employees["records"];
     });
   }
 
   getDepartments(): void {
-    this.departmentService.getDepartments().subscribe((departments) => this.departments = departments)
+    this.departmentService.getDepartments().subscribe(departments => this.departments = departments["records"])
   }
 
   delete(employee: Employee): void {
@@ -78,7 +66,7 @@ export class EmployeesComponent implements OnInit {
     this.employeeService.deleteEmployee(employee).subscribe();
   }
 
-  constructor(private employeeService: EmployeeService, private departmentService: DepartmentService) { }
+  constructor(private employeeService: EmployeeService, private departmentService: DepartmentService, config: NgbDatepickerConfig) { }
 
   ngOnInit() {
     this.getEmployees();
