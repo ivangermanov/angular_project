@@ -77,12 +77,21 @@ export class DepartmentService {
     return employees;
   }
 
-  delete(dep: Department): Observable<Department> {
+  /*delete(dep: Department): Observable<Department> {
     DEPARTMENTS.splice(DEPARTMENTS.indexOf(dep), 1);
     return of(dep);
-  }
+  }*/
+  delete(department: Department): Observable<Department> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
+    return this._http.post(
+      `${this.departmentsUrl}/delete.php`,
+      { id: department.id },
+      options
+    ).pipe(map((res: Response) => res.json()));
 
+ }
   //SEARCH department
   searchDepartments(term: string): Observable<Department[]> {
     if(!term.trim()) {

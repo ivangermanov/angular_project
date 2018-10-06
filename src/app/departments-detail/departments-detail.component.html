@@ -4,7 +4,8 @@
     <div class="col card" style="width: 18rem;">
         <button (click)="goBack()">Go back!</button>
         <div class="card-body">
-            <h5 class="card-title"><input #name id="name-input" [(ngModel)]="department.name" placeholder="name"></h5>
+            <h5 class="card-title"><input  [(ngModel)]="department.name" placeholder="name"></h5>
+        
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: {{department.id}}</li>
@@ -18,7 +19,7 @@
                   </span>
             </li>
         </ul>
-        <button (click)="updateDepartment()">Update!</button>
+        <button (click)="updateDepartment()">Update</button>
     </div>
   <div class="col"></div>
  </div>
