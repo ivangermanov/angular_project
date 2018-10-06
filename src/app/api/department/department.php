@@ -146,7 +146,39 @@ function readOne(){
     }
 }
 
+//UPDATE
 
+function update(){
+ 
+    // update query
+    $query = "UPDATE
+                " . $this->table_name . "
+            SET
+                name_deaprtment = :name_department,
+                role = :role
+            WHERE
+                id = :id";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+ 
+    // sanitize
+    $this->name_department=htmlspecialchars(strip_tags($this->name_department));
+    $this->role=htmlspecialchars(strip_tags($this->role));
+    
+ 
+    // bind new values
+    $stmt->bindParam(':name_department', $this->name_department);
+    $stmt->bindParam(':role', $this->role);
+    $stmt->bindParam(':id', $this->id);
+ 
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }
+ 
+    return false;
+}
 
    
 }

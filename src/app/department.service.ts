@@ -96,10 +96,31 @@ export class DepartmentService {
   //jsonify 
   jsonifyDepartment(department: Department): object {
    
-    let jsonTask = {
+    let jsonDepartment = {
       "id": department.id, "name_department": department.name, "role": department.role
     };
 
-    return jsonTask;
+    return jsonDepartment;
   }
+
+  //UPDATE 
+  updateDepartment(department: Department): Observable<Department> {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let jsonDepartment = this.jsonifyDepartment(department);
+
+    return this._http.post(
+      `${this.departmentsUrl}/update.php`,
+      jsonDepartment,
+      options
+    ).pipe(map((res: Response) => {
+      if (res.ok) {
+        return of(department);
+      } else {
+        return res.json();
+      }
+    }));
+}
 }
