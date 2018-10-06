@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class EmployeeService {
 
   employees$: Observable<Employee[]>;
-  private employeesUrl = "http://localhost/api/employees";
+  private employeesUrl = "http://i380810.hera.fhict.nl/api/employees";
 
   //changed for the web app
   getEmployees(): Observable<Employee[]> {

@@ -16,7 +16,7 @@ import { pipe } from '@angular/core/src/render3/pipe';
 })
 export class TaskService {
 
-  private tasksUrl = "http://localhost/api/tasks";
+  private tasksUrl = "http://i380810.hera.fhict.nl/api/tasks";
 
   /* GET tasks whose name contains search term */
   searchTasks(term: string): Observable<Task[]> {

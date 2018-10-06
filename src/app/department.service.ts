@@ -16,7 +16,7 @@ import { del } from 'selenium-webdriver/http';
 })
 export class DepartmentService {
 
-  private departmentsUrl = "http://localhost/api/department";
+  private departmentsUrl = "http://i380810.hera.fhict.nl/api/department";
   constructor(
     private employeeService: EmployeeService,
     private _http: Http) { }
