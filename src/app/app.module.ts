@@ -15,6 +15,7 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
 import { TaskSearchComponent } from './task-search/task-search.component';
 import { DepartmentSearchComponent } from './department-search/department-search.component';
 import { EmployeeSearchComponent } from './employee-search/employee-search.component';
+import { OrderByPipe } from './order-by.pipe';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EmployeeSearchComponent } from './employee-search/employee-search.compo
     EmployeeDetailComponent,
     TaskSearchComponent,
     DepartmentSearchComponent,
-    EmployeeSearchComponent
+    EmployeeSearchComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

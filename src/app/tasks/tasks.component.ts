@@ -2,18 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../task';
 import { Department } from '../department';
 import { Employee } from '../employee';
-
+import { OrderByPipe } from '../order-by.pipe';
 import { TaskService } from '../task.service';
 import { DepartmentService } from '../department.service';
 import { EmployeeService } from '../employee.service';
-
 import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { SortMethod } from '../sort-method.enum';
+import { and } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
-  providers: [NgbDatepickerConfig]
+  providers: [NgbDatepickerConfig, OrderByPipe]
 })
 export class TasksComponent implements OnInit {
 
@@ -23,6 +24,7 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
   employees: Employee[];
   departments: Department[];
+  sortMethod = SortMethod;
 
   selectEmployees(employees: Employee[]) {
     this.selectedEmployees = employees;
@@ -31,6 +33,22 @@ export class TasksComponent implements OnInit {
   selectDepartment(department: Department) {
     this.selectedDepartment = department;
     this.getEmployees();
+  }
+
+  orderBy(sortMethod: SortMethod, order: string) {
+    if (sortMethod === SortMethod.ID && order === "ASC") {
+      this.tasks = this.orderByPipe.transform(this.tasks, '+id');
+    } else if (sortMethod === SortMethod.ID && order ==="DESC") {
+      this.tasks = this.orderByPipe.transform(this.tasks, '-id');
+    } else if (sortMethod === SortMethod.Name && order === "ASC") {
+      this.tasks = this.orderByPipe.transform(this.tasks, '+name');
+    } else if (sortMethod === SortMethod.Name && order === "DESC") {
+      this.tasks = this.orderByPipe.transform(this.tasks, '-name');
+    } else if (sortMethod === SortMethod.DueDate && order ==="ASC") {
+      this.tasks = this.orderByPipe.transform(this.tasks, '+dueDate');
+    } else if (sortMethod === SortMethod.DueDate && order ==="DESC") {
+      this.tasks = this.orderByPipe.transform(this.tasks, '-dueDate');
+    } 
   }
 
   add(name: string, reason: string, dueDate: string, employees: Employee[], department: Department): void {
@@ -83,7 +101,8 @@ export class TasksComponent implements OnInit {
     private taskService: TaskService,
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
-    config: NgbDatepickerConfig
+    config: NgbDatepickerConfig,
+    private orderByPipe: OrderByPipe
   ) {
     let date = new Date();
     config.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};

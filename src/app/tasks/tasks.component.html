@@ -31,6 +31,20 @@
   </button>
 </div>
 
+<div class="row justify-content-center align-items-center">
+  <div ngbDropdown class="d-inline-block pb-5" style="width: 12.5%">
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle style="width: 70%">Sort by</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button (click)="orderBy(sortMethod.ID, 'ASC')" class="dropdown-item">ID Asc</button>
+      <button (click)="orderBy(sortMethod.ID, 'DESC')" class="dropdown-item">ID Desc</button>
+      <button (click)="orderBy(sortMethod.Name, 'ASC')" class="dropdown-item">Name Asc (caps)</button>
+      <button (click)="orderBy(sortMethod.Name, 'DESC')" class="dropdown-item">Name Desc</button>
+      <button (click)="orderBy(sortMethod.DueDate, 'ASC')" class="dropdown-item">Due Date Asc</button>
+      <button (click)="orderBy(sortMethod.DueDate, 'DESC')" class="dropdown-item">Due Date Desc</button>
+    </div>
+  </div>
+</div>
+
 <div class="grid-container">
   <li class="tasks" *ngFor="let task of tasks">
     <a routerLink="/detail/tasks/{{task.id}}">
