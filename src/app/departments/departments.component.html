@@ -2,10 +2,10 @@
 <app-department-search></app-department-search>
 <div class="addDepartmentContainer input-group input-group-sm justify-content-center align-items-center">
   <label class='addDepartmentItem center-block'> Department name: 
-      <input #depName/>
+      <input #depName type="text" maxlength="50">
   </label>
   <label class='addDepartmentItem'>Department role:
-      <input #depRole>
+      <input #depRole type="text" maxlength="50">
   </label>
   <button class="btn btn-primary" (click)="add(depName.value, depRole.value); depName.value=''; depRole.value=''">Add</button>
 </div>

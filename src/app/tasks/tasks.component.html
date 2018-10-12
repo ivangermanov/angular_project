@@ -2,13 +2,13 @@
 <app-task-search></app-task-search>
 <div class='addTaskContainer input-group input-group-sm justify-content-center align-items-center'>
   <label class='addTaskItem center-block'>Task name:
-    <input #taskName />
+    <input #taskName type="text" maxlength="50" />
   </label>
   <label class='addTaskItem'>Task reason:
-    <input #taskReason />
+    <input #taskReason type="text" maxlength="100" />
   </label>
   <label class='addTaskItem'>Task due date:
-    <input #taskDueDate name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" placeholder="YYYY-mm-dd" (click)="d.toggle()" />
+    <input #taskDueDate name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" placeholder="YYYY-mm-dd" (click)="d.toggle()" type="text" maxlength="10" />
   </label>
   <label class='addTaskItem'>Department:
     <select [(ngModel)]="selectedDepartment" (change)="selectDepartment(selectedDepartment)">

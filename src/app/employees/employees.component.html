@@ -17,14 +17,14 @@
 <div class='addEmployeeContainer'>
 
   <label class='addEmployeeItem'>Employee name:
-    <input #employeeName />
+    <input #employeeName type="text" maxlength="55"/>
   </label>
 
   <label class='addEmployeeItem'>Employee DOH:
-    <input #employeeDOH name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" placeholder="YYYY-mm-dd" (click)="d.toggle()" />
+    <input #employeeDOH name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" placeholder="YYYY-mm-dd" (click)="d.toggle()" type="text" maxlength="10" />
   </label>
   <label class='addEmployeeItem'>Employee telephone:
-    <input #employeeTel />
+    <input #employeeTel type="text" maxlength="12"/>
   </label>
 
   <label class='addEmployeeItem'>Department:

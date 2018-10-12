@@ -4,7 +4,7 @@
     <div class="col card" style="width: 18rem;">
       <button (click)="goBack()">Go back!</button>
       <div class="card-body">
-        <h5 class="card-title"><input [(ngModel)]="task.name" placeholder="name"></h5>
+        <h5 class="card-title"><input [(ngModel)]="task.name" placeholder="name" type="text" maxlength="50" ></h5>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">ID: {{task.id}}</li>

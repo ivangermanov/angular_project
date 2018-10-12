@@ -66,7 +66,14 @@ export class EmployeesComponent implements OnInit {
     this.employeeService.deleteEmployee(employee).subscribe();
   }
 
-  constructor(private employeeService: EmployeeService, private departmentService: DepartmentService, config: NgbDatepickerConfig) { }
+  constructor(
+    private employeeService: EmployeeService,
+    private departmentService: DepartmentService,
+    config: NgbDatepickerConfig
+  ) {
+    let date = new Date();
+    config.maxDate = { year: date.getFullYear(), month: date.getMonth() + 2, day: date.getDate() };
+  }
 
   ngOnInit() {
     this.getEmployees();
